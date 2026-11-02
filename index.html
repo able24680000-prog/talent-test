@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>天赋测试 · 职业方向测评</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --violet: #7355f0;
+        --violet-deep: #5b3ee0;
+        --violet-soft: #efeaff;
+        --violet-faint: #f5f2ff;
+        --ink: #232033;
+        --ink-2: #5c5872;
+        --ink-3: #9894ad;
+        --card: #ffffff;
+        --page: #e9e4fb;
+        --line: #e7e3f5;
+        --green: #1d9e75;
+        --green-bg: #e7f7f0;
+        --amber: #b97a12;
+        --amber-bg: #fdf3dd;
+        --shadow: 0 10px 30px rgba(84, 62, 190, 0.10);
+        --radius: 18px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --violet: #9d85ff;
+          --violet-deep: #b7a5ff;
+          --violet-soft: #2c2450;
+          --violet-faint: #241d42;
+          --ink: #efecff;
+          --ink-2: #b6b1cf;
+          --ink-3: #837e9e;
+          --card: #1d1933;
+          --page: #120e24;
+          --line: #322b52;
+          --green: #4cc79c;
+          --green-bg: #14352a;
+          --amber: #e0aa4e;
+          --amber-bg: #3a2f14;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+      }
+      * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+        background: var(--page);
+        color: var(--ink);
+        line-height: 1.6;
+      }
+      .phone {
+        max-width: 480px;
+        margin: 0 auto;
+        min-height: 100dvh;
+        background: linear-gradient(180deg, var(--violet-faint) 0%, var(--page) 340px);
+        padding: 0 16px 40px;
+      }
+      @media (min-width: 560px) {
+        .phone { box-shadow: 0 0 60px rgba(84, 62, 190, 0.18); }
+      }
+      .screen { display: none; }
+      .screen.active { display: block; animation: fadeIn 0.28s ease; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        .screen.active { animation: none; }
+      }
+
+      /* ---------- 首页 ---------- */
+      .hero { padding: 44px 6px 8px; text-align: center; }
+      .hero .theory { font-size: 12px; letter-spacing: 0.22em; color: var(--violet); font-weight: 600; }
+      .hero h1 { font-size: 34px; margin: 10px 0 8px; letter-spacing: 0.04em; font-weight: 800; }
+      .hero p { margin: 0 auto; max-width: 320px; color: var(--ink-2); font-size: 14px; }
+      .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 26px 0 6px; position: relative; }
+      .feat {
+        background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+        padding: 22px 10px 18px; text-align: center; font-size: 16px; font-weight: 700;
+      }
+      .feat small { display: block; margin-top: 4px; font-size: 12px; font-weight: 400; color: var(--ink-3); }
+      .feat-center {
+        position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+        width: 52px; height: 52px; border-radius: 50%; background: var(--card);
+        box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center;
+        color: var(--violet);
+      }
+      .meta-row { display: flex; justify-content: center; gap: 8px; margin: 20px 0 22px; flex-wrap: wrap; }
+      .meta-chip {
+        font-size: 12px; color: var(--ink-2); background: var(--card);
+        border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px;
+      }
+      .btn-primary {
+        display: block; width: 100%; border: none; cursor: pointer;
+        background: var(--violet); color: #fff; font-size: 17px; font-weight: 700;
+        padding: 15px 0; border-radius: 999px; letter-spacing: 0.12em;
+        box-shadow: 0 12px 24px rgba(115, 85, 240, 0.35);
+        transition: transform 0.12s ease, background 0.12s ease;
+        font-family: inherit;
+      }
+      .btn-primary:active { transform: scale(0.98); background: var(--violet-deep); }
+      .dims-preview { margin-top: 28px; }
+      .dims-preview h2 { font-size: 15px; margin: 0 0 10px; }
+      .dims-preview .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+      .dim-chip {
+        font-size: 13px; background: var(--violet-soft); color: var(--violet-deep);
+        padding: 6px 12px; border-radius: 999px; font-weight: 600;
+      }
+      .home-note { margin-top: 22px; font-size: 12px; color: var(--ink-3); text-align: center; }
+
+      /* ---------- 答题 ---------- */
+      .quiz-top { padding-top: 22px; }
+      .quiz-nav { display: flex; align-items: center; gap: 12px; }
+      .btn-back {
+        border: none; background: var(--card); color: var(--ink-2); cursor: pointer;
+        width: 38px; height: 38px; border-radius: 50%; font-size: 18px; line-height: 1;
+        box-shadow: var(--shadow); font-family: inherit; flex: none;
+      }
+      .btn-back:disabled { opacity: 0.35; cursor: default; }
+      .progress-wrap { flex: 1; }
+      .progress-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); margin-bottom: 6px; }
+      .progress-meta b { color: var(--violet); font-size: 13px; }
+      .progress-bar { height: 8px; background: var(--violet-soft); border-radius: 99px; overflow: hidden; }
+      .progress-fill { height: 100%; background: var(--violet); border-radius: 99px; transition: width 0.3s ease; width: 0%; }
+      .q-card {
+        background: var(--card); border-radius: 22px; box-shadow: var(--shadow);
+        padding: 28px 22px 24px; margin-top: 22px;
+      }
+      .q-dim { font-size: 12px; color: var(--violet); font-weight: 700; letter-spacing: 0.14em; }
+      .q-text { font-size: 20px; font-weight: 700; line-height: 1.55; margin: 12px 0 6px; min-height: 62px; }
+      .q-hint { font-size: 12px; color: var(--ink-3); margin: 0 0 18px; }
+      .options { display: flex; flex-direction: column; gap: 10px; }
+      .opt {
+        display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+        border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 14px; padding: 14px 16px; font-size: 16px; cursor: pointer;
+        font-family: inherit; transition: border-color 0.12s, background 0.12s;
+      }
+      .opt .dot {
+        width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--ink-3);
+        flex: none; position: relative;
+      }
+      .opt.selected { border-color: var(--violet); background: var(--violet-faint); font-weight: 700; }
+      .opt.selected .dot { border-color: var(--violet); }
+      .opt.selected .dot::after {
+        content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--violet);
+      }
+      .opt:active { transform: scale(0.99); }
+
+      /* ---------- 生成中 ---------- */
+      .analyzing { text-align: center; padding: 110px 10px 0; }
+      .spinner {
+        width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%;
+        border: 6px solid var(--violet-soft); border-top-color: var(--violet);
+        animation: spin 0.9s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
+      .analyzing h2 { font-size: 20px; margin: 0 0 8px; }
+      .analyzing p { color: var(--ink-3); font-size: 13px; margin: 0; }
+      .analyze-steps { margin: 26px auto 0; max-width: 240px; text-align: left; font-size: 14px; color: var(--ink-3); }
+      .analyze-steps div { padding: 4px 0; opacity: 0.35; transition: opacity 0.3s; }
+      .analyze-steps div.on { opacity: 1; color: var(--ink); font-weight: 600; }
+
+      /* ---------- 报告 ---------- */
+      .report-head { padding: 30px 4px 4px; text-align: center; }
+      .report-head .done { font-size: 12px; letter-spacing: 0.2em; color: var(--violet); font-weight: 700; }
+      .card {
+        background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+        padding: 20px; margin-top: 14px;
+      }
+      .card h3.sec {
+        display: flex; align-items: center; gap: 9px; font-size: 17px; margin: 0 0 14px;
+      }
+      .card h3.sec .ic {
+        width: 28px; height: 28px; border-radius: 8px; background: var(--violet);
+        color: #fff; display: inline-flex; align-items: center; justify-content: center; flex: none;
+      }
+      .card h3.sec .sub { margin-left: auto; font-size: 12px; color: var(--ink-3); font-weight: 400; }
+      .type-name { font-size: 27px; font-weight: 800; text-align: center; margin: 4px 0 2px; }
+      .type-kw { text-align: center; color: var(--violet); font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+      .adv-row {
+        display: flex; align-items: center; gap: 10px; background: var(--violet-faint);
+        border-radius: 12px; padding: 11px 14px; margin-bottom: 8px;
+      }
+      .adv-row .rank {
+        background: var(--violet); color: #fff; font-size: 12px; font-weight: 700;
+        border-radius: 7px; padding: 3px 8px; flex: none;
+      }
+      .adv-row .nm { font-weight: 700; font-size: 15px; }
+      .adv-row .sc { margin-left: auto; color: var(--ink-3); font-size: 14px; }
+      .core-pattern {
+        background: var(--green-bg); color: var(--ink); border-radius: 12px;
+        padding: 13px 15px; font-size: 14px; margin-top: 12px;
+      }
+      .core-pattern b { color: var(--green); }
+      .radar-wrap { display: flex; justify-content: center; }
+      .combo-note { font-size: 14px; color: var(--ink-2); margin: 6px 0 12px; }
+      .tag-label { font-size: 13px; font-weight: 700; margin: 10px 0 6px; }
+      .tag-label.good { color: var(--green); }
+      .tag-label.bad { color: var(--amber); }
+      .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+      .tag {
+        font-size: 12.5px; background: var(--violet-faint); color: var(--violet-deep);
+        border-radius: 999px; padding: 5px 11px;
+      }
+      .tag.plain { background: var(--violet-faint); color: var(--ink-2); }
+      .dim-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; }
+      .dim-row .no {
+        width: 24px; height: 24px; border-radius: 7px; background: var(--violet); color: #fff;
+        font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none;
+      }
+      .dim-row .nm { width: 68px; font-size: 14px; font-weight: 600; flex: none; }
+      .dim-row .bar { flex: 1; height: 10px; background: var(--violet-soft); border-radius: 99px; overflow: hidden; }
+      .dim-row .bar i { display: block; height: 100%; background: var(--violet); border-radius: 99px; }
+      .dim-row .sc { width: 26px; text-align: right; font-weight: 800; font-size: 15px; flex: none; }
+      .dim-row .lv { width: 76px; font-size: 12px; color: var(--violet-deep); flex: none; }
+      .dim-row .lv.low { color: var(--ink-3); }
+      .type-desc p { font-size: 14.5px; margin: 8px 0; color: var(--ink); }
+      .type-desc p b.k { color: var(--ink); }
+      .warn-box {
+        background: var(--amber-bg); border-radius: 12px; padding: 12px 14px;
+        font-size: 13.5px; margin-top: 12px; color: var(--ink);
+      }
+      .warn-box b { color: var(--amber); }
+      .core-dim { border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 12px; }
+      .core-dim:first-of-type { margin-top: 2px; }
+      .core-dim .hd { display: flex; align-items: baseline; gap: 10px; }
+      .core-dim .hd .nm { font-size: 18px; font-weight: 800; }
+      .core-dim .stars { color: #f2a93b; font-size: 14px; letter-spacing: 2px; }
+      .core-dim .score-line { font-size: 12.5px; color: var(--ink-3); margin: 2px 0 8px; }
+      .core-dim .tagline { font-weight: 700; font-size: 15px; margin: 6px 0; }
+      .core-dim h4 { font-size: 13px; color: var(--green); margin: 12px 0 4px; }
+      .core-dim ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+      .core-dim ul li { margin: 3px 0; }
+      .core-dim .synergy { font-size: 13.5px; color: var(--ink-2); margin: 4px 0; }
+      .core-dim .synergy b { color: var(--green); }
+      .person-box { background: var(--violet-faint); border-radius: 12px; padding: 12px 14px; margin-top: 12px; font-size: 13.5px; }
+      .person-box .who { color: var(--ink-3); margin-right: 10px; }
+      .person-box .pname { font-weight: 800; font-size: 15px; }
+      .person-box p { margin: 4px 0 0; color: var(--ink-2); }
+      .holland-box { background: var(--violet-faint); border-radius: 12px; padding: 14px 16px; }
+      .holland-box .code-line { font-size: 16px; font-weight: 700; }
+      .holland-box .code-line .code { color: var(--violet); font-size: 22px; font-weight: 800; letter-spacing: 0.08em; }
+      .holland-box p { font-size: 13px; color: var(--ink-2); margin: 6px 0 0; }
+      .career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+      @media (max-width: 380px) { .career-grid { grid-template-columns: 1fr; } }
+      .career { border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+      .career .hd { display: flex; align-items: flex-start; gap: 8px; }
+      .career .no {
+        width: 24px; height: 24px; border-radius: 7px; background: var(--violet); color: #fff;
+        font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none;
+      }
+      .career .nm { font-weight: 800; font-size: 15.5px; line-height: 1.35; }
+      .career .match { margin-left: auto; text-align: right; flex: none; }
+      .career .match .pct { color: var(--violet); font-weight: 800; font-size: 16px; }
+      .career .match .stars { color: #f2a93b; font-size: 11px; letter-spacing: 1px; display: block; }
+      .career .mbar { height: 7px; background: var(--violet-soft); border-radius: 99px; overflow: hidden; margin: 10px 0; }
+      .career .mbar i { display: block; height: 100%; background: var(--violet); border-radius: 99px; }
+      .career .why { background: var(--green-bg); border-radius: 9px; padding: 8px 10px; font-size: 12.5px; margin-bottom: 8px; }
+      .career .why b { color: var(--green); }
+      .career dl { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+      .career dl div { margin: 4px 0; }
+      .career dt { display: inline; color: var(--ink-3); }
+      .career dd { display: inline; margin: 0; }
+      .career .first dd { color: var(--amber); font-weight: 600; }
+      .plan-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 6px; }
+      @media (min-width: 430px) { .plan-grid { grid-template-columns: repeat(3, 1fr); } }
+      .plan-col { border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+      .plan-col h4 { margin: 0 0 2px; font-size: 15px; }
+      .plan-col h4 .when { font-size: 12px; color: var(--ink-3); font-weight: 400; margin-left: 4px; }
+      .plan-col ul { list-style: none; margin: 10px 0 0; padding: 0; font-size: 13px; color: var(--ink-2); }
+      .plan-col li { padding: 4px 0 4px 20px; position: relative; }
+      .plan-col li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+      .plan-intro { font-size: 14px; color: var(--ink-2); margin: 0 0 8px; }
+      .caution-list { font-size: 14px; color: var(--ink-2); }
+      .caution-list div { padding: 5px 0; }
+      .caution-list b { color: var(--ink); }
+      .btn-ghost {
+        display: block; width: 100%; margin-top: 22px; padding: 14px 0; cursor: pointer;
+        background: transparent; border: 1.5px solid var(--violet); color: var(--violet-deep);
+        border-radius: 999px; font-size: 15px; font-weight: 700; font-family: inherit;
+      }
+      .btn-ghost:active { transform: scale(0.98); }
+      .report-foot { text-align: center; font-size: 12px; color: var(--ink-3); margin-top: 16px; }
+      /* ---------- 断点续答 ---------- */
+      .resume-banner { display:none; background:var(--card); border:1.5px solid var(--violet); border-radius:14px; padding:14px 16px; margin-top:16px; box-shadow:var(--shadow); }
+      .resume-banner.show { display:block; }
+      .resume-banner .rb-title { font-weight:800; font-size:15px; }
+      .resume-banner .rb-sub { font-size:13px; color:var(--ink-2); margin:4px 0 10px; }
+      .resume-banner .rb-actions { display:flex; gap:8px; }
+      .btn-resume { flex:1; border:none; background:var(--violet); color:#fff; font-weight:700; padding:10px 0; border-radius:999px; cursor:pointer; font-family:inherit; font-size:14px; }
+      .btn-discard { border:1.5px solid var(--line); background:transparent; color:var(--ink-2); padding:10px 16px; border-radius:999px; cursor:pointer; font-family:inherit; font-size:14px; }
+      .quiz-saved { text-align:center; font-size:12px; color:var(--ink-3); margin-top:12px; }
+      .btn-quit { display:block; margin:14px auto 0; background:none; border:none; color:var(--ink-3); font-size:13px; cursor:pointer; font-family:inherit; text-decoration:underline; }
+      /* ---------- 类型画廊 ---------- */
+      .gallery-head { display:flex; align-items:baseline; justify-content:space-between; margin:30px 0 4px; }
+      .gallery-head h2 { font-size:17px; margin:0; }
+      .gallery-head span { font-size:12px; color:var(--ink-3); }
+      .gallery-sub { font-size:13px; color:var(--ink-2); margin:0 0 12px; }
+      .gallery-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      @media (max-width:360px){ .gallery-grid{ grid-template-columns:1fr; } }
+      .g-card { background:var(--card); border-radius:14px; box-shadow:var(--shadow); padding:14px; border:2px solid transparent; cursor:pointer; text-align:left; font-family:inherit; color:var(--ink); width:100%; }
+      .g-card:active { transform:scale(.99); }
+      .g-card.mine { border-color:var(--violet); }
+      .g-card .g-badge { display:inline-block; font-size:11px; font-weight:700; background:var(--violet); color:#fff; border-radius:999px; padding:2px 8px; margin-bottom:6px; }
+      .g-card .g-type { font-size:16px; font-weight:800; line-height:1.3; }
+      .g-card .g-kw { font-size:12px; color:var(--violet); font-weight:600; margin:2px 0 6px; }
+      .g-card .g-desc { font-size:12.5px; color:var(--ink-2); line-height:1.55; }
+      .g-card .g-career { font-size:12px; color:var(--ink-3); margin-top:8px; border-top:1px solid var(--line); padding-top:8px; }
+      /* ---------- 报告 Tabs ---------- */
+      .report-tabs { position:sticky; top:0; z-index:20; background:var(--page); padding:10px 0 8px; margin:0 -2px; }
+      .report-tabs-inner { display:flex; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:4px; box-shadow:var(--shadow); overflow-x:auto; scrollbar-width:none; }
+      .report-tabs-inner::-webkit-scrollbar{ display:none; }
+      .rtab { flex:1 0 auto; border:none; background:transparent; color:var(--ink-2); font-family:inherit; font-size:13.5px; font-weight:600; padding:9px 12px; border-radius:999px; cursor:pointer; white-space:nowrap; }
+      .rtab.active { background:var(--violet); color:#fff; }
+      .rtab-panel { display:none; }
+      .rtab-panel.active { display:block; animation:fadeIn .25s ease; }
+      /* ---------- 分享卡 ---------- */
+      .share-actions { display:flex; gap:10px; margin-top:16px; }
+      .btn-share { flex:1; border:none; background:var(--ink); color:#fff; font-family:inherit; font-weight:700; font-size:15px; padding:14px 0; border-radius:999px; cursor:pointer; }
+      .btn-share:active{ transform:scale(.98); }
+      .share-modal { display:none; position:fixed; inset:0; background:rgba(18,14,36,.72); z-index:50; align-items:flex-end; justify-content:center; padding:16px; }
+      .share-modal.open { display:flex; }
+      .share-sheet { background:var(--card); color:var(--ink); border-radius:20px; padding:18px; width:100%; max-width:420px; max-height:92dvh; overflow:auto; }
+      .share-sheet h3 { margin:0 0 4px; font-size:17px; }
+      .share-sheet p { margin:0 0 12px; font-size:13px; color:var(--ink-2); }
+      .share-sheet img { width:100%; border-radius:12px; display:block; background:#efeaff; }
+      .share-sheet .sm-actions { display:flex; gap:8px; margin-top:14px; }
+      .share-sheet .sm-actions a, .share-sheet .sm-actions button { flex:1; text-align:center; text-decoration:none; font-family:inherit; font-weight:700; font-size:14px; padding:12px 0; border-radius:999px; cursor:pointer; }
+      .sm-download { background:var(--violet); color:#fff !important; border:none; }
+      .sm-close { background:transparent; border:1.5px solid var(--line); color:var(--ink); }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+
+      <!-- 首页 -->
+      <section class="screen active" id="screen-home">
+        <div class="hero">
+          <div class="theory">天赋能力测评 × 职业兴趣测评</div>
+          <h1>天赋 · 职业方向</h1>
+          <p>基于兴趣、能力、思维与成长潜力，辅助你探索更适合的职业选择。</p>
+        </div>
+        <div class="feat-grid">
+          <div class="feat">兴趣探索<small>找到真正热爱的方向</small></div>
+          <div class="feat">能力识别<small>看清你的天赋图谱</small></div>
+          <div class="feat">职业匹配<small>匹配适合的职业方向</small></div>
+          <div class="feat">方向规划<small>给出可执行的行动计划</small></div>
+          <div class="feat-center" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5 13.2 13.2 8.5 15.5 10.8 10.8Z" fill="currentColor"/></svg>
+          </div>
+        </div>
+        <div class="meta-row">
+          <span class="meta-chip">50 道题</span>
+          <span class="meta-chip">10 个天赋维度</span>
+          <span class="meta-chip">约 3 分钟</span>
+          <span class="meta-chip">即时生成报告</span>
+        </div>
+        <button class="btn-primary" id="btn-start">开始测评</button>
+        <div class="resume-banner" id="resume-banner">
+          <div class="rb-title">上次测到一半，还没答完</div>
+          <div class="rb-sub" id="resume-sub">已答 0 / 50 题，进度已保存在这台设备上，接着答就行。</div>
+          <div class="rb-actions">
+            <button class="btn-resume" id="btn-resume">继续答题 →</button>
+            <button class="btn-discard" id="btn-discard">丢弃重来</button>
+          </div>
+        </div>
+        <div class="dims-preview">
+          <h2>测评维度 · 基于多元智能理论</h2>
+          <div class="chips" id="dim-chips"></div>
+        </div>
+        <div class="gallery-head"><h2>天赋类型画廊</h2><span>10 种原型 · 点卡片看详情</span></div>
+        <p class="gallery-sub">报告里的类型由你最强的两个维度组合命名。先逛一圈，看看哪种最像你——测完后你的类型会在这里高亮。</p>
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <p class="home-note">没有对错，按第一直觉作答，结果更接近真实的你。答题进度会自动保存，中途退出下次可续答。</p>
+      </section>
+
+      <!-- 答题 -->
+      <section class="screen" id="screen-quiz">
+        <div class="quiz-top">
+          <div class="quiz-nav">
+            <button class="btn-back" id="btn-prev" aria-label="上一题">‹</button>
+            <div class="progress-wrap">
+              <div class="progress-meta"><span>天赋测评进度</span><span><b id="q-cur">1</b> / <span id="q-total">50</span></span></div>
+              <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim" id="q-dim"></div>
+          <div class="q-text" id="q-text"></div>
+          <p class="q-hint">选择最符合你日常状态的一项，选完自动进入下一题。</p>
+          <div class="options" id="q-options"></div>
+        </div>
+        <div class="quiz-saved" id="quiz-saved">进度已自动保存 · 可随时退出，下次从这里继续</div>
+        <button class="btn-quit" id="btn-quit">先存着，稍后再答</button>
+      </section>
+
+      <!-- 生成中 -->
+      <section class="screen" id="screen-analyzing">
+        <div class="analyzing">
+          <div class="spinner" aria-hidden="true"></div>
+          <h2>正在生成你的天赋报告</h2>
+          <p>根据你的作答实时计算中</p>
+          <div class="analyze-steps">
+            <div id="astep-1">计算 10 个维度的天赋得分…</div>
+            <div id="astep-2">识别你的天赋类型与核心模式…</div>
+            <div id="astep-3">匹配霍兰德职业代码与职业方向…</div>
+            <div id="astep-4">生成分阶段行动计划…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 报告 -->
+      <section class="screen" id="screen-result">
+        <div class="report-head">
+          <div class="done">测评完成 · 你的专属天赋报告</div>
+        </div>
+        <div id="report-body"></div>
+        <div class="share-actions">
+          <button class="btn-share" id="btn-share-card">生成分享卡 · 保存图片</button>
+        </div>
+        <button class="btn-ghost" id="btn-restart">重新测试</button>
+        <p class="report-foot">本测评基于多元智能理论与霍兰德职业兴趣模型，结果仅供自我探索与职业方向参考。分享卡为 3:4 竖版图，适合发小红书 / 朋友圈。</p>
+      </section>
+
+    </div>
+
+    <!-- 分享卡预览 -->
+    <div class="share-modal" id="share-modal" role="dialog" aria-label="分享卡预览">
+      <div class="share-sheet">
+        <h3>你的天赋分享卡</h3>
+        <p>长按图片也可保存。发笔记时配上你的类型名，更容易被同类刷到。</p>
+        <img id="share-img" alt="天赋测试结果分享卡" />
+        <div class="sm-actions">
+          <a class="sm-download" id="share-download" download="天赋测试结果.png" href="#">下载 PNG</a>
+          <button class="sm-close" id="share-close" type="button">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+
+      /* ============ 维度定义（多元智能 8 项 + 创新创造 + 审美设计） ============ */
+      var DIMS = [
+        {
+          id: "logic", name: "逻辑分析", short: "逻辑", kw: "推演", holland: { I: 2, C: 1 },
+          tagline: "抽丝剥茧，看清因果",
+          desc: "你擅长把混沌的问题拆解成清晰的因果链，靠推理而不是直觉做决定。",
+          strengths: ["复杂问题拆解与归因", "对数据与规律的敏感度高", "决策前能冷静权衡利弊"],
+          tips: ["把你的分析过程写下来，能帮你影响更多人", "练习先用一句话讲结论，再补论据", "给直觉留一点位置，别让分析瘫痪行动"],
+          caution: "过度追求逻辑完备，容易错过窗口期；低估人的因素时，会在协作里吃暗亏。",
+          fit: ["数据与策略类岗位", "流程与系统优化", "研究、咨询类工作"],
+          unfit: ["全凭感觉拍板的环境", "高度重复的流水线岗位"],
+          shortAct: "挑一个你关心的问题，写一页结构化的分析笔记",
+          midAct: "系统学一门分析工具（表格 / SQL / Python 任选其一）",
+          person: { name: "艾伦·图灵", note: "用严密的逻辑推理，开创了计算机科学。" }
+        },
+        {
+          id: "language", name: "语言表达", short: "语言", kw: "表达", holland: { A: 1, E: 1, S: 1 },
+          tagline: "以言达意，把想法讲进人心里",
+          desc: "你对文字和语言节奏天然敏感，能把复杂的事讲简单，把平淡的事讲动人。",
+          strengths: ["表达清晰，感染力强", "写作与讲述的组织能力好", "能把专业内容翻译成大白话"],
+          tips: ["坚持输出：写作或口播，每周至少一次", "收集打动你的句子，建自己的语料库", "练习倾听，表达的一半是听懂对方"],
+          caution: "容易说得多、落地少；也可能因为太在意措辞而拖延开口。",
+          fit: ["内容与品牌岗位", "教学培训", "公关与主持"],
+          unfit: ["长期闭门、无需对外沟通的岗位"],
+          shortAct: "开始写一个小专栏或短视频脚本，每周一篇",
+          midAct: "完成一个完整的长内容作品（系列文章 / 课程 / 播客）",
+          person: { name: "蔡康永", note: "以温润而精准的表达，成为几代人的说话范本。" }
+        },
+        {
+          id: "spatial", name: "空间想象", short: "空间", kw: "空间", holland: { R: 1, C: 1, A: 1 },
+          tagline: "心中有图，眼里有局",
+          desc: "你能在脑海里旋转、拆解和重组空间，图纸和实景在你眼中可以互相翻译。",
+          strengths: ["三维想象与方位感强", "擅长布局、规划与可视化", "对结构和比例敏感"],
+          tips: ["多用草图和模型把想法外化出来", "学一款建模 / 制图工具放大这项天赋", "用速写记下空间灵感，别让它溜走"],
+          caution: "容易只顾整体布局，忽略细节执行和他人的实际感受。",
+          fit: ["建筑与空间设计", "产品结构与工业设计", "游戏场景与地图类工作"],
+          unfit: ["完全抽象、无空间对象的纯理论工作"],
+          shortAct: "用图示方式重新规划你的房间或一段工作流程",
+          midAct: "学一款建模工具并完成 3 个完整作品",
+          person: { name: "贝聿铭", note: "以几何与光影，在空间里写下现代东方的答案。" }
+        },
+        {
+          id: "body", name: "身体操作", short: "身体", kw: "躬行", holland: { R: 2, C: 1 },
+          tagline: "身体先于大脑学会",
+          desc: "你的身体协调性和动手能力突出，很多技能看一遍、练几遍就能上手。",
+          strengths: ["动作学习速度快", "手眼协调与动手能力强", "在实操中容易进入心流"],
+          tips: ["把技能练到能教别人，教是最好的精进", "为身体天赋找一门可变现的手艺", "注意劳损防护，天赋也要保养"],
+          caution: "久坐型工作会快速消耗你；只练不总结，容易停在熟练工层面。",
+          fit: ["运动与健身行业", "手工艺与制造", "医疗康复操作类工作"],
+          unfit: ["全天久坐、纯屏幕岗位"],
+          shortAct: "选一项身体技能，每周固定练习 3 次并记录进步",
+          midAct: "考取一个相关证书，或完成一件可展示的手工作品",
+          person: { name: "李小龙", note: "把身体练成哲学，让动作本身成为表达。" }
+        },
+        {
+          id: "music", name: "音乐感知", short: "音乐", kw: "韵律", holland: { A: 2 },
+          tagline: "耳朵比眼睛先懂世界",
+          desc: "你对旋律、节奏和音色高度敏感，声音是你感知情绪和世界的重要通道。",
+          strengths: ["乐感与节奏感出众", "能捕捉声音里细微的情绪变化", "听觉记忆力好"],
+          tips: ["系统学一门乐器或声乐，把直觉变技能", "多听不同风格，扩充你的声音样本库", "试试把音乐天赋用在配音、剪辑等交叉领域"],
+          caution: "对噪音和杂乱声音格外敏感，环境不对时状态会明显下滑。",
+          fit: ["音乐教育与演奏", "音频制作与配音", "声音相关的疗愈工作"],
+          unfit: ["长期嘈杂无序的工作环境"],
+          shortAct: "每天留 20 分钟专注听完一首曲子，写下感受",
+          midAct: "完成一次正式的演奏、录制或教学输出",
+          person: { name: "久石让", note: "用旋律替画面说话，让情绪有了形状。" }
+        },
+        {
+          id: "inter", name: "人际理解", short: "人际", kw: "联结", holland: { S: 2, E: 1 },
+          tagline: "读懂人心，让关系成为你的杠杆",
+          desc: "你能敏锐地察觉他人的情绪和意图，在关系中天然知道如何靠近、如何协调。",
+          strengths: ["共情与察言观色能力强", "擅长协调分歧、建立信任", "在团队中是天然的连接点"],
+          tips: ["把读人能力用在正事上：谈判、协作、服务", "练习设立边界，别让共情变成消耗", "把你的判断说出来，帮助团队少走弯路"],
+          caution: "过度照顾别人感受，容易忽略自己的目标；被他人情绪卷入时，消耗过大。",
+          fit: ["客户关系与商务拓展", "团队协作与冲突调解", "教练式 1 对 1 工作", "压力场景下的决策支持"],
+          unfit: ["高重复流程岗位", "纯执行类工作", "单一封闭式任务"],
+          shortAct: "找一位同事或朋友做一次深度交流，验证报告结论",
+          midAct: "主导一次跨团队协作或社群运营，刻意练习影响力",
+          person: { name: "卡尔·罗杰斯", note: "以共情和无条件积极关注，奠定了现代心理咨询的根基。" }
+        },
+        {
+          id: "intra", name: "自我觉察", short: "内省", kw: "洞察", holland: { I: 1, S: 1, A: 1 },
+          tagline: "向内看清，向外才走得稳",
+          desc: "你对自己的情绪、动机和状态有清晰的觉知，复盘和独处是你充电的方式。",
+          strengths: ["自我认知清晰，少自欺", "情绪调节与复盘能力强", "目标感来自内在，不易被裹挟"],
+          tips: ["把觉察写成文字，日记是最便宜的成长工具", "给自己设阶段性复盘，别只想不做", "把内心结论讲给别人听，接受校验"],
+          caution: "想得太透、动得太慢；也容易因为太懂自己而低估行动带来的反馈。",
+          fit: ["咨询与教练工作", "研究与写作", "需要长期主义的岗位"],
+          unfit: ["节奏极快、全靠即时反应的环境"],
+          shortAct: "坚持写晨间或睡前复盘，每天 10 分钟",
+          midAct: "完成一次深度自我盘点：价值观、优势、底线各写一页",
+          person: { name: "王阳明", note: "以「心即理」与知行合一，把向内求索变成行动哲学。" }
+        },
+        {
+          id: "nature", name: "自然观察", short: "自然", kw: "自然", holland: { R: 1, I: 2 },
+          tagline: "在万物里读规律",
+          desc: "你对自然界的细微变化异常敏感，分类、观察和亲近自然让你恢复能量。",
+          strengths: ["观察细致，善于分类归纳", "对环境变化的感知敏锐", "在自然中专注力最强"],
+          tips: ["建立自己的观察笔记，记录物种与节气变化", "把观察力迁移到行业趋势和用户行为上", "多安排户外时间，那是你的充电站"],
+          caution: "长期封闭的城市高压环境会让你快速疲惫；对环境的挑剔要适度表达。",
+          fit: ["生态与农业领域", "自然教育与科普", "户外与环保行业"],
+          unfit: ["长期封闭、无窗的办公环境"],
+          shortAct: "每周一次户外观察，记录 3 个新发现",
+          midAct: "系统学习一个自然领域（观鸟 / 植物 / 气象），并输出科普内容",
+          person: { name: "达尔文", note: "以数十年如一日的观察，从自然里读出了进化。" }
+        },
+        {
+          id: "creative", name: "创新创造", short: "创造", kw: "革新", holland: { A: 2, E: 1 },
+          tagline: "总能提出第三种方案",
+          desc: "你的大脑天生不爱走寻常路，组合、改良、另起一行，是你的默认模式。",
+          strengths: ["点子产量与质量双高", "擅长跨界组合已有元素", "对没道理的规则零容忍"],
+          tips: ["建立灵感备忘录，每周至少记 5 个点子", "学会把点子做成最小原型再谈价值", "找一个擅长落地的人做搭档"],
+          caution: "新鲜感驱动，容易虎头蛇尾；点子太多时要强迫自己做减法。",
+          fit: ["产品创意与策划", "创业与新业务", "内容与广告创意"],
+          unfit: ["严格按手册执行、不许变通的岗位"],
+          shortAct: "建立灵感备忘录，每周至少记 5 个点子",
+          midAct: "挑一个点子做成最小原型，拿到真实反馈",
+          person: { name: "乔布斯", note: "把科技与人文装进同一个产品，重新定义了行业。" }
+        },
+        {
+          id: "aesthetic", name: "审美设计", short: "美学", kw: "审美", holland: { A: 2, R: 1 },
+          tagline: "让美成为判断力",
+          desc: "你对色彩、排版、质感有近乎本能的判断，「好看」在你这里是专业而非玄学。",
+          strengths: ["视觉判断快而准", "对细节和完成度要求高", "能把审美直觉变成一致风格"],
+          tips: ["建立自己的灵感库（收藏夹），定期整理", "学一门设计工具，把审美判断力变成产出", "在团队里主动做「最后一公里的美化」", "区分「必要的品质」和「过度的完美主义」"],
+          caution: "容易陷入完美主义；也容易因为标准太高，与赶进度的协作方产生摩擦。",
+          fit: ["视觉与品牌设计", "空间与陈设美化", "产品体验打磨"],
+          unfit: ["只重功能、完全不论呈现的工作"],
+          shortAct: "建一个「好设计收藏夹」，每周存 10 个案例并写一句理由",
+          midAct: "学一门设计工具并临摹 3 个你欣赏的作品",
+          person: { name: "原研哉", note: "以「空」与质感著称、用美学重塑日常的设计大师。" }
+        }
+      ];
+      var DIM = {};
+      DIMS.forEach(function (d) { DIM[d.id] = d; });
+
+      /* ============ 题库：每维度 5 题 × 10 维度 = 50 题（五级量表 1–5 分） ============ */
+      var QUESTIONS = [
+        { dim: "logic", text: "遇到复杂问题，我习惯先把它拆成几个小部分，再逐个解决" },
+        { dim: "language", text: "把心里的想法说清楚、讲明白，对我来说不费劲" },
+        { dim: "spatial", text: "看地图或户型图时，我脑子里能立刻浮现出实际的样子" },
+        { dim: "body", text: "学新的运动或舞蹈动作，我上手比一般人快" },
+        { dim: "music", text: "一首歌听一两遍，我就能跟着哼出它的旋律" },
+        { dim: "inter", text: "别人没说出口的情绪，我通常能察觉到" },
+        { dim: "intra", text: "我很清楚自己情绪起伏的原因是什么" },
+        { dim: "nature", text: "我对动植物的名字和习性很感兴趣" },
+        { dim: "creative", text: "我的脑子里总冒出别人想不到的点子" },
+        { dim: "aesthetic", text: "排版、配色好不好看，我一眼就有判断" },
+        { dim: "logic", text: "我能很快发现一件事前因后果之间的联系" },
+        { dim: "language", text: "我喜欢写作和记录，享受把感受落成文字" },
+        { dim: "spatial", text: "我擅长拼图、积木、模型这类需要空间感的东西" },
+        { dim: "body", text: "我动手能力强，组装、修理东西基本难不倒我" },
+        { dim: "music", text: "我能分辨出一段音乐里不同乐器的声音" },
+        { dim: "inter", text: "朋友有心事时，常会第一个来找我倾诉" },
+        { dim: "intra", text: "我经常复盘自己的言行，想想哪里可以做得更好" },
+        { dim: "nature", text: "在户外时，我能注意到季节和天气的细微变化" },
+        { dim: "creative", text: "规则和流程如果没道理，我总想改一改" },
+        { dim: "aesthetic", text: "我会为了让一个东西更好看，反复调整细节" },
+        { dim: "logic", text: "数字和表格里藏着的规律，我通常一眼就能看出来" },
+        { dim: "language", text: "在一群人里发言，我不太怯场" },
+        { dim: "spatial", text: "收纳整理时，我总能找到最省空间的摆法" },
+        { dim: "body", text: "我的身体协调性不错，平衡感好" },
+        { dim: "music", text: "心情不好时，音乐是最能安慰我的东西" },
+        { dim: "inter", text: "我能很快判断一个人说话背后的真实意图" },
+        { dim: "intra", text: "我对自己想要什么、不想要什么，心里有数" },
+        { dim: "nature", text: "我擅长分辨不同的植物、石头或云的种类" },
+        { dim: "creative", text: "我喜欢把不相关的东西组合出新花样" },
+        { dim: "aesthetic", text: "逛展览、看设计作品是我日常的乐趣之一" },
+        { dim: "logic", text: "做决定之前，我喜欢列出利弊逐条比较" },
+        { dim: "language", text: "我能把复杂的事情讲得让外行也听懂" },
+        { dim: "spatial", text: "给人指路时，我能清楚说出方位和大致距离" },
+        { dim: "body", text: "长时间坐着不动我会浑身难受，必须起来活动" },
+        { dim: "music", text: "我对节奏很敏感，走路、说话都不自觉带着节奏感" },
+        { dim: "inter", text: "在团队里，我常是调和矛盾的那个人" },
+        { dim: "intra", text: "独处时我不觉得空虚，反而能给自己充电" },
+        { dim: "nature", text: "亲近自然时，我感到格外放松和专注" },
+        { dim: "creative", text: "做事时，比起标准答案我更想试试自己的办法" },
+        { dim: "aesthetic", text: "我的穿搭或房间布置，常被朋友夸有品味" },
+        { dim: "logic", text: "别人争论时，我常能指出他们逻辑上的漏洞" },
+        { dim: "language", text: "读书时我常被精彩的句子打动，并想记下来" },
+        { dim: "spatial", text: "闭上眼，我能在脑海里把一个物体翻转着看" },
+        { dim: "body", text: "手工活（编织、木工、烹饪等）让我很有成就感" },
+        { dim: "music", text: "我常被某段旋律击中，起一身鸡皮疙瘩" },
+        { dim: "inter", text: "和陌生人打交道，我很少感到尴尬" },
+        { dim: "intra", text: "我能坦然承认自己的弱点，不逃避" },
+        { dim: "nature", text: "我对环境变化（空气、光线、声音）比常人更敏感" },
+        { dim: "creative", text: "头脑风暴时，我通常是出主意最多的那个" },
+        { dim: "aesthetic", text: "不好看的东西摆在眼前，我会浑身不舒服" }
+      ];
+      var SCALE = [
+        { label: "非常符合", value: 5 },
+        { label: "比较符合", value: 4 },
+        { label: "一般", value: 3 },
+        { label: "比较不符合", value: 2 },
+        { label: "非常不符合", value: 1 }
+      ];
+
+      /* ============ 霍兰德职业兴趣 ============ */
+      var HOLLAND = {
+        R: { name: "现实型", desc: "动手实践、操作工具与设备、偏好具体任务" },
+        I: { name: "研究型", desc: "思考分析、探索原理、偏好研究与解决问题" },
+        A: { name: "艺术型", desc: "创意表达、自由创作、偏好非结构化的工作" },
+        S: { name: "社会型", desc: "助人合作、沟通教导、偏好服务与协作" },
+        E: { name: "企业型", desc: "影响说服、组织领导、偏好目标与结果" },
+        C: { name: "常规型", desc: "条理秩序、数据流程、偏好明确规范的任务" }
+      };
+
+      /* ============ 职业库：按维度组合打分匹配 ============ */
+      var CAREERS = [
+        { name: "平面设计师", dims: ["aesthetic", "creative"], fit: "需要审美判断力与软件技能", first: "用作品集说话，先临摹再原创" },
+        { name: "配音演员", dims: ["music", "language"], fit: "需要对声音的细微变化有高度敏感性", first: "从有声书或短视频配音起步" },
+        { name: "内容策划", dims: ["language", "creative"], fit: "需要优秀的文案撰写和选题 sense", first: "先独立运营一个账号验证手感" },
+        { name: "视频编导", dims: ["creative", "aesthetic", "language"], fit: "需要画面感与叙事能力的组合", first: "用手机完成 3 条完整短片" },
+        { name: "人力资源专员", dims: ["inter", "intra"], fit: "适合招聘、员工关系与日常人事", risk: "需要识人与沟通敏感度", first: "从招聘助理或人事专员做起" },
+        { name: "社会工作者 / 公益项目官", dims: ["inter", "intra"], fit: "适合弱势群体支持与公益项目执行", risk: "需要强共情心与较低的经济回报预期", first: "从志愿者或社工机构实习做起" },
+        { name: "电商运营", dims: ["inter", "logic"], fit: "适合店铺运营、活动与流量", risk: "需要数据敏感与用户思维", first: "从运营助理或客服做起" },
+        { name: "内容创作者 / 自媒体", dims: ["intra", "creative"], fit: "适合把想法做成图文或视频内容", risk: "需要持续产出与自我表达", first: "从一两个平台持续更新开始" },
+        { name: "编辑 / 校对", dims: ["intra", "language"], fit: "适合文字审校与内容把关", risk: "需要文字敏感与细致耐心", first: "从编辑助理或校对做起" },
+        { name: "音乐教师", dims: ["inter", "music"], fit: "适合音乐理论与演奏教学", risk: "需要音乐功底与教学耐心", first: "从兼职教学开始" },
+        { name: "数据分析师", dims: ["logic", "intra"], fit: "适合业务数据拆解与决策支持", risk: "需要严谨的抽象思维与长时间专注", first: "先掌握表格工具与一门分析语言" },
+        { name: "软件工程师", dims: ["logic", "spatial"], fit: "适合系统开发与复杂问题解决", risk: "需要严谨的抽象思维与长时间专注", first: "完成一个能真正上线的小项目" },
+        { name: "产品经理", dims: ["logic", "inter", "creative"], fit: "适合需求洞察与产品规划", risk: "需要同时理解业务、用户与技术", first: "从一个小功能的全流程跟起" },
+        { name: "建筑 / 室内设计师", dims: ["spatial", "aesthetic"], fit: "适合空间方案与视觉呈现", risk: "项目周期长，改稿是常态", first: "先把手绘与软件基本功打牢" },
+        { name: "健身教练", dims: ["body", "inter"], fit: "适合体能训练指导与课程带领", risk: "靠体力与口碑，前期收入不稳定", first: "考证后从团课带起" },
+        { name: "手作匠人 / 烘焙师", dims: ["body", "aesthetic"], fit: "适合手作产品制作与出品", risk: "重复练习多，品控必须稳定", first: "先把三款产品做到能卖的水平" },
+        { name: "自然教育导师", dims: ["nature", "language"], fit: "适合户外课程与自然科普", risk: "工作在户外，季节性较强", first: "从营地助教或科普志愿者做起" },
+        { name: "生态 / 农业技术员", dims: ["nature", "logic"], fit: "适合物种观察与生态项目执行", risk: "野外工作多，回报周期长", first: "先系统学完一个物种类群" },
+        { name: "心理咨询师", dims: ["inter", "intra"], fit: "适合一对一倾听与心理支持", risk: "需要长期专业训练与督导", first: "先完成系统的心理学训练" },
+        { name: "插画师", dims: ["aesthetic", "spatial"], fit: "适合商业插画与视觉叙事", risk: "接单不稳定，需要经营个人品牌", first: "坚持速写练习，攒出自己的风格" }
+      ];
+
+      /* ============ 类型画廊：10 种单维原型（报告类型 = 前二维度组合） ============ */
+      var PROTO = {
+        logic: { type: "推演型", line: "靠推理拆解世界，越复杂越兴奋。", career: "数据分析 · 策略 · 研究" },
+        language: { type: "表达型", line: "把想法讲进人心里，输出就是影响力。", career: "内容 · 品牌 · 教学培训" },
+        spatial: { type: "空间型", line: "心中有图，眼里有局，擅长布局与呈现。", career: "空间设计 · 产品 · 建筑" },
+        body: { type: "躬行型", line: "身体先学会，在实操里进入心流。", career: "运动 · 手作 · 康复操作" },
+        music: { type: "韵律型", line: "对声音和节奏极度敏感，耳朵先懂世界。", career: "音乐教育 · 配音 · 音频制作" },
+        inter: { type: "联结型", line: "读懂人心，让关系成为做事的杠杆。", career: "人力 · 客户成功 · 咨询" },
+        intra: { type: "洞察型", line: "向内看得清，向外才走得稳。", career: "教练 · 研究 · 写作" },
+        nature: { type: "自然型", line: "在万物细节里读规律，观察力惊人。", career: "自然教育 · 生态 · 科普" },
+        creative: { type: "革新型", line: "总能提出第三种方案，不走寻常路。", career: "产品创意 · 创业 · 策划" },
+        aesthetic: { type: "审美型", line: "让美成为判断力，细节决定完成度。", career: "视觉设计 · 品牌 · 体验打磨" }
+      };
+      var LS_KEY = "talent_demo_progress_v2";
+      var LS_RESULT = "talent_demo_result_v2";
+      var lastResult = null;
+      function saveProgress() {
+        try {
+          var done = answers.filter(function (v) { return v !== null; }).length;
+          if (done === 0) { localStorage.removeItem(LS_KEY); return; }
+          if (done >= QUESTIONS.length) { localStorage.removeItem(LS_KEY); return; }
+          localStorage.setItem(LS_KEY, JSON.stringify({ answers: answers, current: current, savedAt: Date.now() }));
+        } catch (e) {}
+      }
+      function loadProgress() {
+        try {
+          var raw = localStorage.getItem(LS_KEY); if (!raw) return null;
+          var d = JSON.parse(raw);
+          if (!d || !Array.isArray(d.answers) || d.answers.length !== QUESTIONS.length) return null;
+          return d;
+        } catch (e) { return null; }
+      }
+      function clearProgress() { try { localStorage.removeItem(LS_KEY); } catch (e) {} refreshResumeBanner(); }
+      function saveResult(r) { lastResult = r; try { localStorage.setItem(LS_RESULT, JSON.stringify(r)); } catch (e) {} renderGallery(); }
+      function loadSavedResult() {
+        try { var raw = localStorage.getItem(LS_RESULT); if (!raw) return null; return JSON.parse(raw); } catch (e) { return null; }
+      }
+      function refreshResumeBanner() {
+        var d = loadProgress(); var b = document.getElementById("resume-banner"); if (!b) return;
+        if (!d) { b.classList.remove("show"); return; }
+        var done = d.answers.filter(function (v) { return v !== null; }).length;
+        if (done === 0 || done >= QUESTIONS.length) { b.classList.remove("show"); return; }
+        document.getElementById("resume-sub").textContent = "已答 " + done + " / 50 题 · 停在第 " + (Math.min(done + 1, 50)) + " 题附近，进度已保存在这台设备上，接着答就行。";
+        b.classList.add("show");
+      }
+      function renderGallery() {
+        var box = document.getElementById("gallery-grid"); if (!box) return;
+        var mineIds = lastResult ? lastResult.topIds : (loadSavedResult() ? loadSavedResult().topIds : []);
+        box.innerHTML = DIMS.map(function (d) {
+          var p = PROTO[d.id]; var mine = mineIds && mineIds.indexOf(d.id) !== -1;
+          return '<button type="button" class="g-card' + (mine ? " mine" : "") + '" data-dim="' + d.id + '">' +
+            (mine ? '<span class="g-badge">你的核心天赋</span>' : '') +
+            '<div class="g-type">' + p.type + ' · ' + d.name + '</div><div class="g-kw">' + d.tagline + '</div>' +
+            '<div class="g-desc">' + p.line + ' ' + d.desc + '</div>' +
+            '<div class="g-career">适合方向：' + p.career + '<br>代表人物：' + d.person.name + '</div></button>';
+        }).join("");
+        box.querySelectorAll(".g-card").forEach(function (el) {
+          el.addEventListener("click", function () {
+            var d = DIM[el.getAttribute("data-dim")];
+            el.querySelector(".g-desc").textContent = d.desc + " 优势：" + d.strengths.join("、") + "。";
+          });
+        });
+      }
+
+      /* ============ 状态与流程 ============ */
+      var answers = new Array(QUESTIONS.length).fill(null);
+      var current = 0;
+      var screens = {
+        home: document.getElementById("screen-home"),
+        quiz: document.getElementById("screen-quiz"),
+        analyzing: document.getElementById("screen-analyzing"),
+        result: document.getElementById("screen-result")
+      };
+      function show(name) {
+        Object.keys(screens).forEach(function (k) { screens[k].classList.toggle("active", k === name); });
+        window.scrollTo(0, 0);
+      }
+
+      // 首页维度 chips
+      document.getElementById("dim-chips").innerHTML = DIMS.map(function (d) {
+        return '<span class="dim-chip">' + d.name + "</span>";
+      }).join("");
+      document.getElementById("q-total").textContent = QUESTIONS.length;
+
+      document.getElementById("btn-start").addEventListener("click", function () {
+        var saved = loadProgress();
+        if (saved) {
+          answers = saved.answers.slice();
+          current = Math.min(Math.max(saved.current || 0, 0), QUESTIONS.length - 1);
+          // 若 current 已答，跳到第一个未答题
+          if (answers[current] !== null) {
+            var nxt = answers.indexOf(null); if (nxt !== -1) current = nxt;
+          }
+        } else { answers = new Array(QUESTIONS.length).fill(null); current = 0; }
+        show("quiz");
+        renderQuestion();
+      });
+      var btnResume = document.getElementById("btn-resume");
+      if (btnResume) btnResume.addEventListener("click", function () { document.getElementById("btn-start").click(); });
+      var btnDiscard = document.getElementById("btn-discard");
+      if (btnDiscard) btnDiscard.addEventListener("click", function () {
+        answers = new Array(QUESTIONS.length).fill(null); current = 0; clearProgress();
+      });
+      var btnQuit = document.getElementById("btn-quit");
+      if (btnQuit) btnQuit.addEventListener("click", function () { saveProgress(); show("home"); refreshResumeBanner(); });
+      document.getElementById("btn-restart").addEventListener("click", function () {
+        answers = new Array(QUESTIONS.length).fill(null);
+        current = 0;
+        clearProgress();
+        try { localStorage.removeItem(LS_RESULT); } catch (e) {}
+        lastResult = null; renderGallery();
+        show("home");
+        refreshResumeBanner();
+      });
+      document.getElementById("btn-prev").addEventListener("click", function () {
+        if (current > 0) { current--; saveProgress(); renderQuestion(); }
+      });
+      // 初始化：画廊 + 续答横幅 + 已保存结果高亮
+      (function initResume() {
+        var sr = loadSavedResult(); if (sr) lastResult = sr;
+        renderGallery(); refreshResumeBanner();
+      })();
+
+      function renderQuestion() {
+        var q = QUESTIONS[current];
+        document.getElementById("q-cur").textContent = current + 1;
+        document.getElementById("progress-fill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+        document.getElementById("q-dim").textContent = "第 " + (current + 1) + " 题 · " + DIM[q.dim].name + "维度";
+        document.getElementById("q-text").textContent = q.text;
+        document.getElementById("btn-prev").disabled = current === 0;
+        var box = document.getElementById("q-options");
+        box.innerHTML = "";
+        SCALE.forEach(function (s) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "opt" + (answers[current] === s.value ? " selected" : "");
+          b.innerHTML = '<span class="dot"></span><span>' + s.label + "</span>";
+          b.addEventListener("click", function () { pickAnswer(s.value); });
+          box.appendChild(b);
+        });
+      }
+
+      var advancing = false;
+      function pickAnswer(v) {
+        if (advancing) return;
+        advancing = true;
+        answers[current] = v;
+        current = Math.min(current, QUESTIONS.length - 1);
+        saveProgress();
+        // 即时反馈：高亮后自动进入下一题
+        var opts = document.querySelectorAll("#q-options .opt");
+        SCALE.forEach(function (s, i) { if (opts[i]) opts[i].classList.toggle("selected", s.value === v); });
+        document.getElementById("progress-fill").style.width = ((current + 1) / QUESTIONS.length * 100) + "%";
+        setTimeout(function () {
+          advancing = false;
+          if (current < QUESTIONS.length - 1) { current++; saveProgress(); renderQuestion(); }
+          else { finishQuiz(); }
+        }, 180);
+      }
+
+      function finishQuiz() {
+        show("analyzing");
+        [1, 2, 3, 4].forEach(function (n, i) {
+          setTimeout(function () { document.getElementById("astep-" + n).classList.add("on"); }, 260 * (i + 1));
+        });
+        setTimeout(function () {
+          buildReport();
+          show("result");
+        }, 1500);
+      }
+
+      /* ============ 计分与推导 ============ */
+      function computeScores() {
+        var scores = {};
+        DIMS.forEach(function (d) { scores[d.id] = 0; });
+        QUESTIONS.forEach(function (q, i) { scores[q.dim] += answers[i] || 3; });
+        return scores; // 每维 5 题 × 1–5 分 = 5–25 分
+      }
+      function levelLabel(score) {
+        if (score >= 20) return "突出优势";
+        if (score >= 16) return "较明显优势";
+        if (score >= 12) return "一般倾向";
+        return "待发展";
+      }
+      function starStr(score) {
+        var full = Math.round(score / 25 * 5);
+        var s = "";
+        for (var i = 0; i < 5; i++) s += i < full ? "★" : "☆";
+        return s;
+      }
+      function computeHolland(scores) {
+        var totals = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+        DIMS.forEach(function (d) {
+          Object.keys(d.holland).forEach(function (L) { totals[L] += scores[d.id] * d.holland[L]; });
+        });
+        return Object.keys(totals).sort(function (a, b) { return totals[b] - totals[a]; }).slice(0, 3);
+      }
+      function computeCareers(scores) {
+        return CAREERS.map(function (c) {
+          var sum = 0;
+          c.dims.forEach(function (id) { sum += scores[id]; });
+          var avg = sum / c.dims.length;
+          return { c: c, match: Math.min(96, Math.round(avg / 25 * 100)), avg: avg };
+        }).sort(function (a, b) { return b.avg - a.avg; }).slice(0, 6);
+      }
+
+      /* ============ 雷达图（手写 SVG，10 轴） ============ */
+      function radarSVG(scores) {
+        var cx = 190, cy = 178, R = 118, size = 380;
+        function pt(i, r) {
+          var a = -Math.PI / 2 + i * (Math.PI * 2 / 10);
+          return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+        }
+        function poly(r, close) {
+          var pts = [];
+          for (var i = 0; i < 10; i++) pts.push(pt(i, r).map(function (n) { return n.toFixed(1); }).join(","));
+          return pts.join(" ") + (close ? "" : "");
+        }
+        var rings = [0.25, 0.5, 0.75, 1].map(function (f) {
+          return '<polygon points="' + poly(R * f) + '" fill="none" stroke="var(--line)" stroke-width="1"/>';
+        }).join("");
+        var spokes = DIMS.map(function (d, i) {
+          var p = pt(i, R);
+          return '<line x1="' + cx + '" y1="' + cy + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="var(--line)" stroke-width="1"/>';
+        }).join("");
+        var dataPts = DIMS.map(function (d, i) { return pt(i, R * scores[d.id] / 25); });
+        var dataPoly = dataPts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ");
+        var dots = dataPts.map(function (p) {
+          return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3.5" fill="var(--violet)"/>';
+        }).join("");
+        var labels = DIMS.map(function (d, i) {
+          var p = pt(i, R + 26);
+          var anchor = "middle";
+          if (p[0] > cx + 18) anchor = "start"; else if (p[0] < cx - 18) anchor = "end";
+          return '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] + 4).toFixed(1) + '" text-anchor="' + anchor + '" font-size="12" fill="var(--ink-2)">' +
+            d.name + ' <tspan font-weight="700" fill="var(--ink)">' + scores[d.id] + "</tspan></text>";
+        }).join("");
+        return '<svg viewBox="0 0 ' + size + ' 356" width="100%" role="img" aria-label="十维天赋雷达图">' +
+          rings + spokes +
+          '<polygon points="' + dataPoly + '" fill="rgba(115,85,240,0.16)" stroke="var(--violet)" stroke-width="2" stroke-linejoin="round"/>' +
+          dots + labels + "</svg>";
+      }
+
+      /* ============ 报告生成 ============ */
+      function esc(s) { return String(s); } // 内容均为内置文案，无需转义用户输入
+
+      function buildReport() {
+        var scores = computeScores();
+        var sorted = DIMS.slice().sort(function (a, b) { return scores[b.id] - scores[a.id]; });
+        var t1 = sorted[0], t2 = sorted[1], t3 = sorted[2], weakest = sorted[sorted.length - 1];
+        var typeName = t1.kw + t2.kw + "型";
+        var holland = computeHolland(scores);
+        var careers = computeCareers(scores);
+        var html = "";
+
+        // —— 第 1 页：类型总览 ——
+        html += '<div class="card">';
+        html += '<div class="type-name">' + typeName + "</div>";
+        html += '<div class="type-kw">关键词：' + t1.kw + " · " + t2.kw + " · " + t3.kw + "</div>";
+        [t1, t2, t3].forEach(function (d, i) {
+          html += '<div class="adv-row"><span class="rank">第' + (i + 1) + '优势</span><span class="nm">' + d.name + '潜能</span><span class="sc">' + scores[d.id] + "分</span></div>";
+        });
+        html += '<div class="core-pattern"><b>你的核心模式：</b>「' + t1.name + "打底、" + t2.name + "助攻——" + t1.tagline +
+          "。再配合" + t3.name + "天赋，能形成别人难以复制的组合竞争力。」</div>";
+        html += "</div>";
+
+        // —— 第 2 页：雷达图 + 组合特点 ——
+        html += '<div class="card">';
+        html += '<h3 class="sec"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>天赋能力图谱<span class="sub">10 维度全景展示</span></h3>';
+        html += '<div class="radar-wrap">' + radarSVG(scores) + "</div>";
+        html += '<p class="combo-note">你不是单项突出型，而是「' + t1.name + " + " + t2.name + " + " + t3.name + "」组合型。</p>";
+        html += '<div class="tag-label good">✓ 更适合</div><div class="tags">' +
+          t1.fit.concat(t2.fit).map(function (t) { return '<span class="tag">' + t + "</span>"; }).join("") + "</div>";
+        html += '<div class="tag-label bad">✕ 不太适合</div><div class="tags">' +
+          t1.unfit.map(function (t) { return '<span class="tag plain">' + t + "</span>"; }).join("") + "</div>";
+        html += "</div>";
+
+        // —— 各项天赋详情 ——
+        html += '<div class="card">';
+        html += '<h3 class="sec"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 6h14M5 12h14M5 18h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>各项天赋详情<span class="sub">按强度排序 · 满分 25</span></h3>';
+        sorted.forEach(function (d, i) {
+          var lv = levelLabel(scores[d.id]);
+          html += '<div class="dim-row"><span class="no">' + (i + 1) + '</span><span class="nm">' + d.name +
+            '</span><span class="bar"><i style="width:' + (scores[d.id] / 25 * 100) + '%"></i></span><span class="sc">' +
+            scores[d.id] + '</span><span class="lv' + (scores[d.id] < 12 ? " low" : "") + '">' + lv + "</span></div>";
+        });
+        html += "</div>";
+
+        // —— 天赋类型解读 ——
+        html += '<div class="card type-desc">';
+        html += '<h3 class="sec"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>天赋类型解读<span class="sub">3 秒看懂你</span></h3>';
+        html += '<div style="font-size:22px;font-weight:800;">' + typeName + "</div>";
+        html += '<div class="tags" style="margin:10px 0 4px;">' +
+          [t1, t2, t3].map(function (d) { return '<span class="tag">' + d.name + "</span>"; }).join("") + "</div>";
+        html += '<p><b class="k">你擅长：</b>你以' + t1.name + "天赋为核心，" + t2.name + "与" + t3.name + "天赋为两翼，组合独特。</p>";
+        html += '<p><b class="k">组合打法：</b>' + t1.name + "打底、" + t2.name + "助攻——" + t1.tagline + "。再配合" + t3.name + "天赋，能形成别人难以复制的组合竞争力。</p>";
+        html += '<div class="warn-box"><b>注意：</b>' + t1.caution + "</div>";
+        html += "</div>";
+
+        // —— 核心天赋（前二） ——
+        html += '<div class="card">';
+        html += '<h3 class="sec"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 4 20 20H4Z" fill="#fff"/></svg></span>你的核心天赋<span class="sub">第一、第二天赋</span></h3>';
+        [t1, t2].forEach(function (d) {
+          var other = d === t1 ? t2 : t3;
+          html += '<div class="core-dim">';
+          html += '<div class="hd"><span class="nm">' + d.name + '天赋</span><span class="stars">' + starStr(scores[d.id]) + "</span></div>";
+          html += '<div class="score-line">' + scores[d.id] + "/25 · " + levelLabel(scores[d.id]) + "</div>";
+          html += '<div class="tagline">' + d.tagline + "。</div>";
+          html += "<p style='font-size:14px;color:var(--ink-2);margin:4px 0;'>" + d.desc + "</p>";
+          html += "<h4>你的优势</h4><ul>" + d.strengths.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul>";
+          html += "<h4>与其他天赋的协同</h4>";
+          html += '<p class="synergy"><b>＋ ' + other.name + "天赋</b>　" + other.tagline + "，与你的" + d.name + "互相放大。</p>";
+          html += "<h4>发挥建议</h4><ul>" + d.tips.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul>";
+          html += '<div class="person-box"><span class="who">与你相似的人</span><span class="pname">' + d.person.name + "</span><p>" + d.person.note + "</p></div>";
+          html += "</div>";
+        });
+        html += "</div>";
+
+        // —— 职业发展指南 ——
+        html += '<div class="card">';
+        html += '<h3 class="sec"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="12" rx="2" fill="#fff"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="#fff" stroke-width="2"/></svg></span>职业发展指南<span class="sub">基于天赋的职业匹配</span></h3>';
+        html += '<div class="holland-box"><div class="code-line">你的霍兰德职业代码：<span class="code">' + holland.join("") + "</span></div><p>" +
+          holland.map(function (L) { return L + " " + HOLLAND[L].name + "（" + HOLLAND[L].desc + "）"; }).join("；") + "。</p></div>";
+        html += '<div class="tag-label" style="margin-top:16px;">推荐职业方向<span style="float:right;color:var(--ink-3);font-weight:400;">6 个</span></div>';
+        html += '<div class="career-grid">';
+        careers.forEach(function (item, i) {
+          var c = item.c;
+          var whyDims = c.dims.slice(0, 2).map(function (id) { return DIM[id].name; }).join(" + ");
+          html += '<div class="career"><div class="hd"><span class="no">' + (i + 1) + '</span><span class="nm">' + c.name +
+            '</span><span class="match"><span class="pct">' + item.match + '%</span><span class="stars">' + starStr(Math.round(item.match / 100 * 25)) + "</span></span></div>";
+          html += '<div class="mbar"><i style="width:' + item.match + '%"></i></div>';
+          html += '<div class="why"><b>为什么：</b>你的' + whyDims + "能力组合明显</div>";
+          html += "<dl>";
+          html += "<div><dt>适合：</dt><dd>" + c.fit.replace(/^适合/, "") + "</dd></div>";
+          if (c.risk) html += '<div><dt>风险：</dt><dd>' + c.risk + "</dd></div>";
+          html += '<div class="first"><dt>第一步：</dt><dd>' + c.first + "</dd></div>";
+          html += "</dl></div>";
+        });
+        html += "</div>";
+        html += '<p style="font-size:13px;color:var(--ink-3);margin:14px 0 0;">小贴士：在选择时，不妨想一想哪类工作更能让你的天赋被看见、被需要。</p>';
+        html += '<div class="warn-box"><b>建议谨慎的方向：</b>与' + weakest.name + '强相关的岗位（如' + weakest.unfit[0] +
+          '）与你的天赋结构不太合拍，硬做容易消耗。更适合把' + weakest.name + '当作辅助技能慢慢补，而不是主战场。</div>';
+        html += "</div>";
+
+        // —— 行动计划 ——
+        html += '<div class="card">';
+        html += '<h3 class="sec"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#fff" stroke-width="2"/><path d="m8.5 12.5 2.5 2.5 4.5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>行动计划<span class="sub">分阶段成长路径</span></h3>';
+        html += '<p class="plan-intro">下面是一份可以直接照着执行的行动清单，帮助你把「看到报告」变成「真正发生改变」。可以先从短期目标里挑 1–2 条开始。</p>';
+        html += '<div class="plan-grid">';
+        html += '<div class="plan-col"><h4>短期目标<span class="when">1–3 个月</span></h4><ul>' +
+          [t1.shortAct, t2.shortAct, "找一个同事 / 朋友做一次深度交流，验证报告结论"].map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul></div>";
+        html += '<div class="plan-col"><h4>中期发展<span class="when">6–12 个月</span></h4><ul>' +
+          [t1.midAct, t3.midAct, "建立个人作品集 / 案例库，记录你的成长"].map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul></div>";
+        html += '<div class="plan-col"><h4>长期愿景<span class="when">持续思考</span></h4><ul>' +
+          ["成为「总能" + t1.tagline + "」的人", "成为某个领域里懂" + t2.name + "的引路人，帮别人入门", "用你的天赋组合创造别人无法复制的价值"].map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul></div>";
+        html += "</div></div>";
+
+        document.getElementById("report-body").innerHTML = html;
+        // 保存结果供分享卡 + 画廊高亮使用，并清除续答进度
+        saveResult({
+          typeName: typeName, scores: scores, topIds: [t1.id, t2.id],
+          topNames: [t1.name, t2.name, t3.name], topScores: [scores[t1.id], scores[t2.id], scores[t3.id]],
+          holland: holland.join(""), careers: careers.map(function (x) { return x.c.name; })
+        });
+        clearProgress();
+        initReportTabs();
+      }
+
+      /* ============ 报告 Tabs：把长报告拆成 5 页，学 alfredang 的多 tab 报告 ============ */
+      function initReportTabs() {
+        var body = document.getElementById("report-body");
+        var cards = Array.prototype.slice.call(body.querySelectorAll(":scope > .card"));
+        if (cards.length < 5 || body.querySelector(".report-tabs")) return;
+        // 卡片顺序：0 总览 1 雷达 2 详情 3 解读 4 核心 5 职业 6 计划
+        var groups = [
+          { label: "总览", idx: [0, 3] },
+          { label: "图谱", idx: [1, 2] },
+          { label: "核心天赋", idx: [4] },
+          { label: "职业", idx: [5] },
+          { label: "行动计划", idx: [6] }
+        ];
+        var tabsHtml = '<div class="report-tabs"><div class="report-tabs-inner" role="tablist">' +
+          groups.map(function (g, i) { return '<button type="button" class="rtab' + (i === 0 ? " active" : "") + '" data-tab="' + i + '">' + g.label + "</button>"; }).join("") + "</div></div>";
+        var panels = groups.map(function (g, i) {
+          var inner = g.idx.map(function (n) { return cards[n] ? cards[n].outerHTML : ""; }).join("");
+          return '<div class="rtab-panel' + (i === 0 ? " active" : "") + '" data-panel="' + i + '">' + inner + "</div>";
+        }).join("");
+        body.innerHTML = tabsHtml + panels;
+        body.querySelectorAll(".rtab").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var t = btn.getAttribute("data-tab");
+            body.querySelectorAll(".rtab").forEach(function (b) { b.classList.toggle("active", b === btn); });
+            body.querySelectorAll(".rtab-panel").forEach(function (p) { p.classList.toggle("active", p.getAttribute("data-panel") === t); });
+            window.scrollTo(0, 0);
+          });
+        });
+      }
+
+      /* ============ 分享卡 PNG：Canvas 绘制 750×1000（3:4） ============ */
+      function drawShareCard() {
+        var r = lastResult || loadSavedResult();
+        if (!r) return;
+        var W = 750, H = 1000;
+        var cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+        var ctx = cv.getContext("2d");
+        var grad = ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, "#7355f0"); grad.addColorStop(1, "#4b2fd6");
+        ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+        // 白卡
+        ctx.fillStyle = "#ffffff";
+        roundRect(ctx, 36, 36, W - 72, H - 72, 28); ctx.fill();
+        ctx.fillStyle = "#7355f0"; ctx.font = "600 26px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("天 赋 测 试 · 职 业 方 向", W / 2, 108);
+        ctx.fillStyle = "#232033"; ctx.font = "800 64px sans-serif";
+        ctx.fillText(r.typeName, W / 2, 196);
+        ctx.fillStyle = "#5c5872"; ctx.font = "28px sans-serif";
+        ctx.fillText("关键词  " + r.topNames.join(" · "), W / 2, 246);
+        // Top3 条
+        ctx.textAlign = "left";
+        for (var i = 0; i < 3; i++) {
+          var y = 310 + i * 92;
+          ctx.fillStyle = "#7355f0"; roundRect(ctx, 84, y - 30, 96, 44, 10); ctx.fill();
+          ctx.fillStyle = "#ffffff"; ctx.font = "700 24px sans-serif"; ctx.fillText("第" + (i + 1) + "优势", 96, y + 2);
+          ctx.fillStyle = "#232033"; ctx.font = "700 32px sans-serif"; ctx.fillText(r.topNames[i] + "潜能", 204, y + 4);
+          ctx.fillStyle = "#9894ad"; ctx.font = "28px sans-serif"; ctx.textAlign = "right"; ctx.fillText(r.topScores[i] + " 分", W - 84, y + 4); ctx.textAlign = "left";
+          ctx.fillStyle = "#efeaff"; roundRect(ctx, 84, y + 22, W - 168, 16, 8); ctx.fill();
+          ctx.fillStyle = "#7355f0"; roundRect(ctx, 84, y + 22, (W - 168) * r.topScores[i] / 25, 16, 8); ctx.fill();
+        }
+        // 霍兰德 + 职业
+        ctx.fillStyle = "#f5f2ff"; roundRect(ctx, 72, 600, W - 144, 190, 18); ctx.fill();
+        ctx.fillStyle = "#232033"; ctx.font = "700 30px sans-serif"; ctx.fillText("霍兰德代码  " + r.holland, 100, 652);
+        ctx.fillStyle = "#5c5872"; ctx.font = "26px sans-serif";
+        wrapText(ctx, "推荐职业：" + (r.careers || []).slice(0, 3).join(" · "), 100, 700, W - 200, 38);
+        ctx.fillStyle = "#9894ad"; ctx.font = "24px sans-serif"; ctx.textAlign = "center";
+        ctx.fillText("基于多元智能理论 · 50 题测出你的天赋组合", W / 2, 856);
+        ctx.fillText("你的天赋，值得被看见", W / 2, 896);
+        var url = cv.toDataURL("image/png");
+        document.getElementById("share-img").src = url;
+        var dl = document.getElementById("share-download"); dl.href = url; dl.setAttribute("download", "天赋测试-" + r.typeName + ".png");
+        document.getElementById("share-modal").classList.add("open");
+      }
+      function roundRect(ctx, x, y, w, h, rad) {
+        ctx.beginPath();
+        ctx.moveTo(x + rad, y); ctx.arcTo(x + w, y, x + w, y + h, rad); ctx.arcTo(x + w, y + h, x, y + h, rad);
+        ctx.arcTo(x, y + h, x, y, rad); ctx.arcTo(x, y, x + w, y, rad); ctx.closePath();
+      }
+      function wrapText(ctx, text, x, y, maxW, lh) {
+        var line = "", yy = y;
+        for (var i = 0; i < text.length; i++) {
+          var test = line + text[i];
+          if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line, x, yy); line = text[i]; yy += lh; } else line = test;
+        }
+        if (line) ctx.fillText(line, x, yy);
+      }
+      document.getElementById("btn-share-card").addEventListener("click", drawShareCard);
+      document.getElementById("share-close").addEventListener("click", function () { document.getElementById("share-modal").classList.remove("open"); });
+      document.getElementById("share-modal").addEventListener("click", function (e) { if (e.target === this) this.classList.remove("open"); });
+    </script>
+  </body>
+</html>
