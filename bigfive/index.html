@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="color-scheme" content="light"/>
+<link rel="icon" href="data:,"/>
+<title>大五人格测试 · Big Five 50题专业版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F3EE;--paper:#FFFEFB;--ink:#16202E;--muted:#6B7280;--line:#E8E0D3;--accent:#C75B39;--accent2:#0F766E;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px 40px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 6px;font-size:12px;letter-spacing:.12em;color:var(--muted);font-weight:700}
+.topbar b{color:var(--ink);letter-spacing:.06em}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#16202E;color:#fff;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em}
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:28px 22px 22px;margin-top:8px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:#FFF1E6;border:1px solid #FDE8D6}
+.hero h1{font-family:"Noto Serif SC",serif;font-size:42px;line-height:.95;margin:14px 0 10px;font-weight:900;letter-spacing:-.02em;position:relative}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.lead{font-size:15px;line-height:1.7;color:#374151;margin:0;position:relative;max-width:540px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;position:relative}
+.meta span{background:#F6F3EE;border:1px solid var(--line);padding:7px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.cta{display:flex;gap:10px;margin-top:20px;position:relative;flex-wrap:wrap}
+.btn{appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px 20px;font-weight:800;font-size:15px}
+.btn-primary{background:var(--ink);color:#fff;flex:1;min-width:180px}
+.btn-ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn-accent{background:var(--accent);color:#fff}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}
+@media(max-width:640px){.grid5{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:36px}}
+.dimcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.dimcard i{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-style:normal;font-weight:900;color:#fff;font-size:15px}
+.dimcard h3{margin:10px 0 4px;font-size:14px}.dimcard p{margin:0;font-size:12px;line-height:1.6;color:var(--muted)}
+.section{margin-top:18px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:20px}
+.section h2{font-family:"Noto Serif SC",serif;font-size:22px;margin:0 0 6px}
+.kicker{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--accent);text-transform:uppercase}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}@media(max-width:560px){.why{grid-template-columns:1fr}}
+.why div{background:#F9F7F2;border:1px solid #EFE9DD;border-radius:16px;padding:14px}
+.why b{display:block;margin-bottom:6px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}@media(max-width:560px){.gallery{grid-template-columns:1fr}}
+.gitem{border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:flex-start;background:#fff}
+.gitem span{font-size:22px}.gitem b{font-size:14px}.gitem p{margin:4px 0 0;font-size:12px;color:var(--muted);line-height:1.6}
+.progressWrap{height:8px;background:#EDE8DE;border-radius:999px;overflow:hidden}.progressBar{height:100%;background:var(--ink);border-radius:999px;transition:width.3s}
+.quizCard{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;margin-top:16px}
+.qnum{font-size:12px;letter-spacing:.1em;font-weight:800;color:var(--muted)}
+.qtext{font-family:"Noto Serif SC",serif;font-size:26px;line-height:1.35;margin:14px 0 18px;font-weight:700}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;padding:15px 16px;border-radius:16px;border:1.5px solid var(--line);background:#FFFEFB;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600}
+.opt:hover{border-color:var(--ink)}.opt.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+.opt small{font-weight:500;opacity:.7;font-size:12px}
+.navrow{display:flex;justify-content:space-between;margin-top:16px;gap:10px}
+.linkbtn{background:none;border:0;font-weight:700;cursor:pointer;color:var(--muted);padding:10px}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:13px;cursor:pointer}.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.scoreRow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #F0EBE0}.scoreRow:last-child{border:0}
+.bar{flex:1;height:10px;background:#EFE9DD;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;border-radius:999px}
+.tag{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}
+.pillrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.pill{font-size:12px;padding:6px 9px;border-radius:999px;background:#F3EFE7;border:1px solid var(--line)}
+.hidden{display:none!important}
+.radarWrap{display:flex;justify-content:center;padding:10px 0}
+.footerNote{font-size:11px;color:#9CA3AF;line-height:1.7;text-align:center;padding:18px 8px}
+input[type=text]{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);font-size:15px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;background:#111827;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="topbar"><span>PSYCHOLOGY · PROFESSIONAL LINE</span><b>BIG FIVE / 50</b></div>
+
+<!-- HOME -->
+<div id="view-home">
+<div class="hero">
+<span class="badge">● 心理学金标准 · 非 MBTI 娱乐版</span>
+<h1>大五人格<br/><em>看清真正的你</em></h1>
+<p class="lead">不是把你塞进 16 个盒子，而是用心理学界公认的 <b>Big Five 五因素模型</b>，画出你的五维人格光谱。50 道 IPIP 公共领域标准题，测完你会知道：你为什么内耗、为什么拖延、为什么总被某类人吸引。</p>
+<div class="meta"><span>⏱ 约 4–6 分钟</span><span>📋 50 题 · 五点量表</span><span>📊 0–100 标准化分数</span><span>🔓 IPIP 公共领域 · 零版权风险</span></div>
+<div class="cta"><button class="btn btn-primary" onclick="startQuiz()">开始测试 →</button><button class="btn btn-ghost" onclick="scrollToId('gallery')">先看人格图鉴</button></div>
+<p class="small" style="margin-top:12px">趣味测试 · 仅供自我探索与娱乐，不作临床诊断。题目源自 IPIP（International Personality Item Pool）公共领域题库，本页计分参考开源项目 bigfive-open 的标准化方法。</p>
+<div id="resumeBox" class="hidden" style="margin-top:14px;background:#FFF7ED;border:1px solid #FDBA74;border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-size:13px;font-weight:700">你有未完成的测试</span><button class="btn btn-accent" style="padding:9px 14px;font-size:13px" onclick="resumeQuiz()">继续答题</button></div>
+</div>
+
+<div class="grid5" id="dimPreview"></div>
+
+<div class="section">
+<div class="kicker">Why Big Five</div><h2>为什么专业的人不用 MBTI 看人格？</h2><p class="small" style="font-size:13px">MBTI 好玩，但它把连续的人格切成非黑即白的类型，重测一致性一直被学界诟病。Big Five 不一样——它是近 40 年人格心理学实证研究收敛出的共识模型，测的是<b>程度</b>，不是标签。</p>
+<div class="why">
+<div><b>🧪 有实证，不是玄学</b><span class="small">五因素结构在跨文化、跨年龄样本中被反复验证，是学术论文和企业人才测评真正用的框架。</span></div>
+<div><b>📈 是光谱，不是盒子</b><span class="small">你的外向性是 73 分，而不是“你是 E 人”。更细腻，也更难被一句话定义——这才是真实的人。</span></div>
+<div><b>🔓 题目免费且开放</b><span class="small">IPIP 题库属公共领域，没有商标和授权费。MBTI® 是注册商标，商业使用有风险，Big Five 没有。</span></div>
+<div><b>🎯 能预测真实行为</b><span class="small">尽责性预测工作绩效，神经质预测情绪健康，开放性预测创造力——分数背后有真实的解释力。</span></div>
+</div>
+</div>
+
+<div class="section" id="gallery">
+<div class="kicker">Archetype Gallery</div><h2>人格原型图鉴 · 你会是哪一种？</h2><p class="small">报告不会只丢给你五个数字。我们会用你最高的两个维度，拼出一个专属原型名——专业，但足够好玩到想截图发小红书。</p>
+<div class="gallery" id="archGallery"></div>
+<button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="startQuiz()">测测我是什么原型 →</button>
+</div>
+<p class="footerNote">基于 IPIP-50 题项改编为中文五点量表 · 计分：正向题直接计分，反向题 6−得分 · 标准化：(原始分−10)/40×100<br/>本测试为趣味自我探索工具，结果受当下状态影响，请勿用于招聘筛选或心理诊断。</p>
+</div>
+
+<!-- QUIZ -->
+<div id="view-quiz" class="hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><button class="linkbtn" onclick="goHome()">← 退出</button><span id="qCount" style="font-weight:800;font-size:13px"></span><button class="linkbtn" onclick="restartQuiz()">重开</button></div>
+<div class="progressWrap"><div class="progressBar" id="pBar" style="width:0%"></div></div>
+<div class="quizCard">
+<div class="qnum" id="qDim"></div>
+<div class="qtext" id="qText"></div>
+<div class="opts" id="opts"></div>
+<div class="navrow"><button class="linkbtn" id="prevBtn" onclick="prevQ()">← 上一题</button><span class="small" style="align-self:center">凭第一感觉选，没有对错</span></div>
+</div>
+<p class="small" style="text-align:center;margin-top:12px">答到一半退出也没关系，回来点「继续答题」就能接着答（本次打开期间有效）。</p>
+</div>
+
+<!-- RESULT -->
+<div id="view-result" class="hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><button class="linkbtn" onclick="goHome()">← 首页</button><span style="font-weight:800;font-size:12px;letter-spacing:.1em">YOUR REPORT</span><button class="linkbtn" onclick="restartQuiz()">再测一次</button></div>
+
+<div style="background:#16202E;color:#fff;border-radius:26px;padding:24px 20px;margin-top:8px;position:relative;overflow:hidden">
+<div style="font-size:11px;letter-spacing:.14em;opacity:.7;font-weight:800">你的大五人格原型</div>
+<div id="rType" style="font-family:'Noto Serif SC',serif;font-size:34px;font-weight:900;line-height:1.1;margin:10px 0 6px"></div>
+<div id="rTagline" style="font-size:14px;line-height:1.7;opacity:.9"></div>
+<div class="pillrow" id="rTags"></div>
+<div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><button class="btn" style="background:#fff;color:#111;flex:1" onclick="downloadCard()">📸 生成分享卡 PNG</button><button class="btn" style="background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)" onclick="copySummary()">复制结果文案</button></div>
+</div>
+
+<div style="margin-top:14px"><div class="tabs" id="tabs">
+<button class="tab on" data-tab="overview" onclick="switchTab('overview')">总览</button>
+<button class="tab" data-tab="detail" onclick="switchTab('detail')">五维详解</button>
+<button class="tab" data-tab="blind" onclick="switchTab('blind')">优势与盲区</button>
+<button class="tab" data-tab="life" onclick="switchTab('life')">职业与关系</button>
+<button class="tab" data-tab="plan" onclick="switchTab('plan')">行动计划</button>
+</div></div>
+
+<div id="tab-overview" class="section" style="margin-top:12px">
+<div class="kicker">Radar</div><h2>五维雷达图</h2>
+<div class="radarWrap" id="radar"></div>
+<div id="scoreList"></div>
+<div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:14px;padding:13px;margin-top:14px"><b style="font-size:13px">一句话总结你的组合</b><p id="rCombo" style="margin:6px 0 0;font-size:13px;line-height:1.7;color:#374151"></p></div>
+</div>
+
+<div id="tab-detail" class="section hidden" style="margin-top:12px"><div class="kicker">Deep Dive</div><h2>五维详解</h2><div id="detailList"></div></div>
+
+<div id="tab-blind" class="section hidden" style="margin-top:12px"><div class="kicker">Strengths & Shadows</div><h2>你的超能力，和它的代价</h2><div id="blindList"></div></div>
+
+<div id="tab-life" class="section hidden" style="margin-top:12px"><div class="kicker">Work & Love</div><h2>职业与关系说明书</h2><div id="lifeContent"></div></div>
+
+<div id="tab-plan" class="section hidden" style="margin-top:12px"><div class="kicker">Action Plan</div><h2>接下来 30 天，照着做</h2><div id="planContent"></div><button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="downloadCard()">把结果做成分享卡 →</button></div>
+
+<canvas id="shareCanvas" width="750" height="1000" class="hidden"></canvas>
+<p class="footerNote">分享卡为 750×1000（3:4），正是小红书竖图尺寸。截图或下载后可直接发笔记。<br/>趣味测试 · 仅供娱乐与自我探索</p>
+</div>
+</div>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+const DIMS={
+O:{name:"开放性",en:"Openness",color:"#D97706",icon:"◐",short:"想象力 · 好奇心 · 审美",high:"你对新想法、新体验、新审美天生饥饿。别人觉得“瞎折腾”的事，你觉得“有意思”。抽象概念、艺术、哲学、没去过的地方，都对你有引力。",low:"你更信任经验和事实，不爱天马行空。对你来说，能落地、能验证的东西才靠谱，太虚的概念容易让你走神。",highTag:"点子永动机",lowTag:"务实落地派"},
+C:{name:"尽责性",en:"Conscientiousness",color:"#0F766E",icon:"⬢",short:"自律 · 条理 · 可靠",high:"你靠谱、能扛事、说到做到。计划感和秩序感给你安全感，拖延会让你浑身难受——你不是卷，你是见不得事情烂尾。",low:"你讨厌被计划绑架，更信临场发挥。灵活是你的优势，但deadline前夜的你，可能和白天的你不是一个人。",highTag:"人间靠谱王",lowTag:"随性自由人"},
+E:{name:"外向性",en:"Extraversion",color:"#C75B39",icon:"◎",short:"社交能量 · 热情 · 主动",high:"人就是你的充电宝。越热闹越来劲，你擅长破冰、带气氛、把陌生人聊成熟人。安静太久，你会电量告罄。",low:"独处才是你的充电方式。你不是社恐，你只是把社交电量看得很贵——只花在真正重要的人和事上。",highTag:"气氛发动机",lowTag:"深度独行者"},
+A:{name:"宜人性",en:"Agreeableness",color:"#5A7D4A",icon:"❧",short:"共情 · 合作 · 温和",high:"你很容易共情别人，冲突让你本能地想退让或调和。你是朋友眼里的“好说话”，但有时候，好说话的代价是委屈自己。",low:"你有话直说，不爱绕弯，也不轻易被别人的情绪绑架。边界感强是你的铠甲，只是偶尔会显得有点“不好惹”。",highTag:"温柔共情者",lowTag:"直来直去派"},
+N:{name:"神经质",en:"Neuroticism",color:"#3B6EA5",icon:"≋",short:"敏感 · 情绪波动 · 警觉",high:"你的情绪雷达比一般人灵敏得多——能更早嗅到风险，也更容易反刍和内耗。敏感不是缺陷，它是你感知力的另一面，只是需要安放。",low:"你情绪底盘很稳，天塌下来先想办法，很少被一时的情绪带走。这种稳定感，会让身边人觉得特别安心。",highTag:"高敏雷达",lowTag:"情绪定海神针"}
+};
+// IPIP-50 中文改编: d维度, r是否反向
+const RAW=[
+// E
+{t:"我是聚会里的气氛担当",d:"E",r:false},{t:"我有非常丰富的想象力，脑子里总有画面",d:"O",r:false},{t:"我总是准备充分，很少临阵磨枪",d:"C",r:false},{t:"我对别人的事不太上心",d:"A",r:true},{t:"我很容易感到压力大",d:"N",r:false},
+{t:"我话不多",d:"E",r:true},{t:"我很难理解抽象的概念",d:"O",r:true},{t:"我的东西经常随手乱放",d:"C",r:true},{t:"我对人本身很感兴趣",d:"A",r:false},{t:"大多数时候我都很放松",d:"N",r:true},
+{t:"在人群里我感到自在",d:"E",r:false},{t:"我有非常生动、鲜活的想象力",d:"O",r:false},{t:"我很注意细节",d:"C",r:false},{t:"我会出言伤人，哪怕不是故意的",d:"A",r:true},{t:"我会为各种事情担忧",d:"N",r:false},
+{t:"我倾向于待在角落，不抢风头",d:"E",r:true},{t:"我对抽象的想法不感兴趣",d:"O",r:true},{t:"我经常把事情搞得一团糟",d:"C",r:true},{t:"我能体谅他人的感受",d:"A",r:false},{t:"我很少感到情绪低落",d:"N",r:true},
+{t:"我会主动开启对话",d:"E",r:false},{t:"我常常有很棒的点子",d:"O",r:false},{t:"杂事我会立刻动手做完，不拖着",d:"C",r:false},{t:"我对别人的烦恼不感兴趣",d:"A",r:true},{t:"我很容易被打扰，思绪容易被打断",d:"N",r:false},
+{t:"我经常没什么想说的",d:"E",r:true},{t:"我的想象力不太好",d:"O",r:true},{t:"我常忘记把东西放回原位",d:"C",r:true},{t:"我心肠很软",d:"A",r:false},{t:"我很容易心烦意乱",d:"N",r:false},
+{t:"在聚会上我会和很多不同的人聊天",d:"E",r:false},{t:"我理解新事物很快",d:"O",r:false},{t:"我喜欢井井有条",d:"C",r:false},{t:"我对别人其实没太大兴趣",d:"A",r:true},{t:"我的情绪变化很大",d:"N",r:false},
+{t:"我不喜欢成为注意力的焦点",d:"E",r:true},{t:"我会使用比较复杂、生僻的词语",d:"O",r:false},{t:"我会逃避自己该尽的责任",d:"C",r:true},{t:"我愿意花时间帮助别人",d:"A",r:false},{t:"我经常情绪起伏",d:"N",r:false},
+{t:"我不介意成为全场中心",d:"E",r:false},{t:"我会花时间反思很多事情",d:"O",r:false},{t:"我习惯按计划行事",d:"C",r:false},{t:"我能感受到他人的情绪，像能感同身受",d:"A",r:false},{t:"我很容易被惹恼",d:"N",r:false},
+{t:"在陌生人面前我比较安静",d:"E",r:true},{t:"我脑子里总是装满了想法",d:"O",r:false},{t:"我对自己的工作要求精确、严格",d:"C",r:false},{t:"我能让身边的人感到放松自在",d:"A",r:false},{t:"我经常感到忧郁、低落",d:"N",r:false},
+];
+const QUESTIONS=RAW; // 50题，已交叉排列
+const OPTS=[{v:1,label:"非常不符合",sub:"完全不像我"},{v:2,label:"比较不符合",sub:"有点不像"},{v:3,label:"说不清",sub:"一半一半"},{v:4,label:"比较符合",sub:"挺像我"},{v:5,label:"非常符合",sub:"这就是我"}];
+
+const ARCH={
+"OE":{n:"灵感引爆者",tag:"好奇心 × 社交能量，点子在人群里炸开",desc:"你不是一个人在脑子里想点子，你是在聊天、碰撞、热闹里把灵感点着的。无聊是你的天敌，新鲜感是你的氧气。"},
+"OC":{n:"造梦建筑师",tag:"想象力 × 执行力，能把白日梦盖成房子",desc:"很多人有想法没落地，有执行没想象——你罕见地两样都有。你能把天马行空的东西，一步步做成真的。"},
+"OA":{n:"共情诗人",tag:"感受力 × 温柔，世界在你眼里有滤镜",desc:"你对美、情绪和人心的感知比常人细一格。你的温柔不是软弱，是你理解世界的方式。"},
+"ON":{n:"深海思想者",tag:"想象力 × 敏感，想得深，也容易想太多",desc:"你的内心世界比表面大十倍。你能想出别人想不到的角度，代价是深夜的脑子经常关不掉。"},
+"CO":{n:"系统发明家",tag:"条理 × 好奇心，在秩序里搞创新",desc:"你不满足于把事做完，你想把做事的方法本身升级。流程、系统、工具——你天生爱优化。"},
+"CE":{n:"王牌执行官",tag:"靠谱 × 带动力，天生的带队者",desc:"你既能定目标，又能带着人往前冲。别人还在讨论，你已经排好表开始干了。"},
+"CA":{n:"可靠守护者",tag:"责任感 × 体贴，让人安心的存在",desc:"你答应的事一定办到，你在意的人一定照顾到。你的可靠不张扬，但谁都离不开。"},
+"CN":{n:"精密舵手",tag:"高标准 × 高警觉，紧绷但从不翻船",desc:"你对自己要求极高，风险意识也强。表面稳如泰山，内心一直在默默检查每一个细节。"},
+"EO":{n:"派对哲学家",tag:"热闹 × 思想，越聊越有深度",desc:"你能在饭局上从八卦聊到宇宙。社交对你不是消耗，是交换想法、收集故事的游戏。"},
+"EC":{n:"全场发动机",tag:"能量 × 目标感，出现就自带推进力",desc:"你一到场，事情就开始动了。你享受被需要、被看见，也真的有把事推成的本事。"},
+"EA":{n:"人间小太阳",tag:"热情 × 善意，谁靠近你都会暖一点",desc:"你的能量是向外给的：带气氛、帮人、让冷场变热闹。和你在一起，很难不开心。"},
+"EN":{n:"高敏感社交家",tag:"爱热闹 × 易内耗，嗨完回家反复复盘",desc:"你在人群里闪闪发光，回家后却会把每句话回放三遍。外向的壳，敏感的心。"},
+"AO":{n:"温柔理想主义者",tag:"善意 × 想象力，相信世界可以更好",desc:"你很难对不公和痛苦视而不见。你心里的那个理想世界，一直在推着你往前走。"},
+"AC":{n:"暖心管家",tag:"体贴 × 靠谱，把所有人照顾得妥妥帖帖",desc:"你记得每个人的喜好，默默把细节都安排好。你的爱不挂在嘴上，都在行动里。"},
+"AE":{n:"气氛疗愈师",tag:"共情 × 感染力，天生的关系润滑剂",desc:"哪里有尴尬和冲突，你就本能地去化解。你让一群人变成一个团队的本事，是天赋。"},
+"AN":{n:"共情雷达",tag:"太懂别人 × 太容易被影响，操心命本命",desc:"别人一个表情你就知道发生了什么。这份敏锐让你体贴入微，也让你替太多人操心。"},
+"NO":{n:"忧郁创作者",tag:"敏感 × 想象力，痛苦是你的创作燃料",desc:"你的低落期往往也是灵感期。你把别人避之不及的情绪，变成了作品和洞见。"},
+"NC":{n:"紧绷的匠人",tag:"焦虑 × 匠心，用反复检查换极致品质",desc:"你交出的东西永远超出平均线，因为你比任何人都怕出错。这份紧绷很累，但它就是你的品质保证。"},
+"NE":{n:"情绪过山车玩家",tag:"感受强烈 × 表达直接，人生从不平淡",desc:"你的情绪来得快、去得也快，喜怒哀乐都写在脸上。和你在一起，永远不会无聊。"},
+"NA":{n:"操心命守护者",tag:"为所有人担忧，也为所有人兜底",desc:"你操心的半径比谁都大：家人、朋友、甚至同事的情绪你都想管。先学会心疼自己，是你的课题。"}
+};
+function archKey(a,b){return ARCH[a+b]?a+b:(ARCH[b+a]?b+a:"OE")}
+
+let state={idx:0,answers:new Array(QUESTIONS.length).fill(null),result:null};
+function $(id){return document.getElementById(id)}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2200)}
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function goHome(){$('view-quiz').classList.add('hidden');$('view-result').classList.add('hidden');$('view-home').classList.remove('hidden');updateResume();window.scrollTo({top:0,behavior:'smooth'})}
+function updateResume(){const done=state.answers.filter(x=>x!==null).length;const box=$('resumeBox');if(done>0&&done<QUESTIONS.length&&!state.result){box.classList.remove('hidden')}else{box.classList.add('hidden')}}
+function startQuiz(){state.result=null;if(state.answers.every(x=>x!==null)) state.answers=new Array(QUESTIONS.length).fill(null); state.idx=state.answers.findIndex(x=>x===null); if(state.idx<0)state.idx=0; showQuiz()}
+function resumeQuiz(){showQuiz()}
+function restartQuiz(){state={idx:0,answers:new Array(QUESTIONS.length).fill(null),result:null};showQuiz()}
+function showQuiz(){$('view-home').classList.add('hidden');$('view-result').classList.add('hidden');$('view-quiz').classList.remove('hidden');renderQ();window.scrollTo({top:0})}
+function renderQ(){
+const q=QUESTIONS[state.idx];
+$('qCount').textContent=(state.idx+1)+' / '+QUESTIONS.length;
+$('pBar').style.width=Math.round(state.answers.filter(x=>x!==null).length/QUESTIONS.length*100)+'%';
+$('qDim').textContent='第 '+(state.idx+1)+' 题 · 凭直觉作答';
+$('qText').textContent='“'+q.t+'”';
+$('prevBtn').style.visibility=state.idx===0?'hidden':'visible';
+const box=$('opts');box.innerHTML='';
+OPTS.forEach(o=>{const b=document.createElement('button');b.className='opt'+(state.answers[state.idx]===o.v?' sel':'');b.innerHTML='<span>'+o.label+'</span><small>'+o.sub+'</small>';b.onclick=()=>{state.answers[state.idx]=o.v; if(state.idx<QUESTIONS.length-1){state.idx++;renderQ()}else{finish()}};box.appendChild(b)});
+}
+function prevQ(){if(state.idx>0){state.idx--;renderQ()}}
+function levelOf(p){if(p>=71)return{t:"高",c:"#B45309"};if(p>=56)return{t:"偏高",c:"#0F766E"};if(p>=46)return{t:"中等",c:"#6B7280"};if(p>=31)return{t:"偏低",c:"#3B6EA5"};return{t:"低",c:"#374151"}}
+function compute(){
+const raw={O:0,C:0,E:0,A:0,N:0};
+QUESTIONS.forEach((q,i)=>{const a=state.answers[i]||3; raw[q.d]+= q.r? (6-a):a});
+const pct={}; Object.keys(raw).forEach(k=>pct[k]=Math.round((raw[k]-10)/40*100));
+const sorted=Object.keys(pct).sort((a,b)=>pct[b]-pct[a]);
+const key=archKey(sorted[0],sorted[1]); const arch=ARCH[key];
+return {raw,pct,sorted,arch,key};
+}
+function finish(){
+if(state.answers.some(x=>x===null)){toast('还有题没答完');return}
+state.result=compute(); renderResult(); $('view-quiz').classList.add('hidden');$('view-home').classList.add('hidden');$('view-result').classList.remove('hidden');window.scrollTo({top:0});updateResume();
+}
+function switchTab(name){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===name));['overview','detail','blind','life','plan'].forEach(n=>$('tab-'+n).classList.toggle('hidden',n!==name));window.scrollTo({top:0,behavior:'smooth'})}
+function radarSVG(pct){
+const keys=['O','C','E','A','N']; const cx=160,cy=150,R=105;
+function pt(i,v){const ang=-Math.PI/2+i*2*Math.PI/5; const r=R*v/100; return [cx+r*Math.cos(ang),cy+r*Math.sin(ang)]}
+let grid=''; [0.25,0.5,0.75,1].forEach(f=>{const pts=keys.map((_,i)=>pt(i,f*100).join(',')).join(' ');grid+='<polygon points="'+pts+'" fill="none" stroke="#E8E0D3" stroke-width="1"/>'});
+let axes='',labels=''; keys.forEach((k,i)=>{const [x,y]=pt(i,100);axes+='<line x1="'+cx+'" y1="'+cy+'" x2="'+x+'" y2="'+y+'" stroke="#E8E0D3"/>';const [lx,ly]=pt(i,122);labels+='<text x="'+lx+'" y="'+ly+'" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="800" fill="'+DIMS[k].color+'">'+DIMS[k].name+' '+pct[k]+'</text>'});
+const poly=keys.map((k,i)=>pt(i,Math.max(pct[k],6)).join(',')).join(' ');
+const dots=keys.map((k,i)=>{const [x,y]=pt(i,Math.max(pct[k],6));return '<circle cx="'+x+'" cy="'+y+'" r="4" fill="'+DIMS[k].color+'" stroke="#fff" stroke-width="2"/>'}).join('');
+return '<svg width="320" height="300" viewBox="0 0 320 300" role="img" aria-label="五维雷达图">'+grid+axes+'<polygon points="'+poly+'" fill="rgba(22,32,46,0.10)" stroke="#16202E" stroke-width="2"/>'+dots+labels+'</svg>';
+}
+function renderResult(){
+const r=state.result; if(!r)return;
+$('rType').textContent=r.arch.n; $('rTagline').textContent=r.arch.tag+' —— '+r.arch.desc;
+$('rTags').innerHTML=r.sorted.slice(0,3).map(k=>'<span class="pill" style="background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.25)">'+DIMS[k].name+' '+r.pct[k]+'分</span>').join('');
+$('radar').innerHTML=radarSVG(r.pct);
+$('scoreList').innerHTML=Object.keys(DIMS).map(k=>{const lv=levelOf(r.pct[k]);return '<div class="scoreRow"><span style="width:64px;font-weight:800;font-size:13px">'+DIMS[k].name+'</span><div class="bar"><i style="width:'+r.pct[k]+'%;background:'+DIMS[k].color+'"></i></div><b style="width:34px;text-align:right">'+r.pct[k]+'</b><span class="tag" style="background:#F3EFE7;color:'+lv.c+'">'+lv.t+'</span></div>'}).join('');
+const top=r.sorted[0], second=r.sorted[1], low=r.sorted[4];
+$('rCombo').textContent='你的发动机是「'+DIMS[top].name+'」，副引擎是「'+DIMS[second].name+'」——'+r.arch.desc+' 相对最弱的是「'+DIMS[low].name+'」（'+r.pct[low]+'分），它不是你的短板判决书，只是提醒你：有些事你天生要用别的方式绕过去。';
+$('detailList').innerHTML=Object.keys(DIMS).map(k=>{const p=r.pct[k];const isHigh=p>=55;return '<div style="padding:16px 0;border-bottom:1px solid #F0EBE0"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:16px"><span style="color:'+DIMS[k].color+'">'+DIMS[k].icon+'</span> '+DIMS[k].name+' <span style="color:var(--muted);font-size:12px;font-weight:500">'+DIMS[k].en+'</span></b><span class="tag" style="background:#F3EFE7">'+p+'分 · '+levelOf(p).t+'</span></div><div class="bar" style="margin:10px 0"><i style="width:'+p+'%;background:'+DIMS[k].color+'"></i></div><p style="margin:0;font-size:13px;line-height:1.8;color:#374151">'+(isHigh?DIMS[k].high:DIMS[k].low)+'</p><div class="pillrow"><span class="pill">'+(isHigh?DIMS[k].highTag:DIMS[k].lowTag)+'</span><span class="pill">'+DIMS[k].short+'</span></div></div>'}).join('');
+// blind spots: top strength + shadow per top/low
+const shadows={O:"点子太多、落地太少，容易对正在做的事失去兴趣。",C:"太爱计划和掌控，计划被打乱时会格外烦躁，也容易把自己累坏。",E:"怕冷场、怕被冷落，有时会为了气氛说太多、答应太多。",A:"太怕冲突，容易把委屈咽下去，事后又反复内耗。",N:"情绪雷达太灵敏，一件小事能在脑子里重播一整天。",};
+const gifts={O:"你能看到别人看不到的可能性。",C:"你能把混乱变成秩序，把承诺变成结果。",E:"你能快速和人建立连接，把资源聚到一起。",A:"你能读懂人心，让合作变得顺滑。",N:"你能提前嗅到风险，避开别人看不见的坑。"};
+$('blindList').innerHTML='<div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:16px;padding:15px;margin-bottom:10px"><b>✦ 你的超能力（'+DIMS[top].name+' '+r.pct[top]+'）</b><p style="margin:6px 0 0;font-size:13px;line-height:1.7;color:#374151">'+gifts[top]+' 第二优势「'+DIMS[second].name+'」会给它加 buff：'+gifts[second]+'</p></div><div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:16px;padding:15px"><b>✦ 它的代价</b><p style="margin:6px 0 0;font-size:13px;line-height:1.7;color:#374151">'+shadows[top]+' 另外，你的「'+DIMS[low].name+'」偏低（'+r.pct[low]+'分）意味着：'+(low==='N'?'你很少内耗，但也可能低估别人的情绪敏感度，多问一句“你还好吗”会很有用。':low==='A'?'你不太会为了和气委屈自己，但重要关系里，偶尔先软下来不是输。':low==='E'?'你不靠社交充电，记得主动维护重要关系，别让“懒得联系”变成遗憾。':low==='C'?'计划和收尾是你的消耗项，把大任务切小、用外部提醒代替意志力。':'你对新鲜事物的兴奋阈值偏高，无聊时容易直接放弃——给新东西多一点耐心。')+'</p></div>';
+// life
+const careers={O:["创意策划","产品经理","作家/编剧","设计师","研究者"],C:["项目管理","财务/审计","工程师","运营管理","医生"],E:["销售/商务拓展","主持/主播","公关","创业者","培训师"],A:["心理咨询","人力资源","教师","客户成功","社工/公益"],N:["风险/质控岗","编辑校对","数据分析","危机公关","深度研究"]};
+const careerList=[...new Set([...careers[top],...careers[second]])].slice(0,6);
+$('lifeContent').innerHTML='<h3 style="margin:6px 0 8px;font-size:15px">💼 更适合你的职业方向</h3><div class="pillrow">'+careerList.map(c=>'<span class="pill">'+c+'</span>').join('')+'</div><p class="small" style="margin-top:10px;font-size:13px">这不是算命，是匹配逻辑：你的高分维度就是你的天然燃料。选工作时先问一句——这份工作每天让我用得最多的是哪一维？用对了，你会越干越有劲；用反了，再高的工资也耗人。</p><h3 style="margin:18px 0 8px;font-size:15px">💬 关系里的你</h3><p style="font-size:13px;line-height:1.8;color:#374151;margin:0">'+(r.pct.E>=55?'你在关系里主动、热烈，喜欢有回应、有互动。最怕的不是吵架，是对方的冷淡和失联。':r.pct.E<46?'你在关系里慢热、重深度，一对一的长谈比十人饭局更让你满足。你不是冷漠，是电量只留给对的人。':'你在关系里松弛自然，既能热闹也能安静，状态取决于对方值不值得。')+' '+(r.pct.A>=55?'你习惯先体谅对方，但记得：长期只出不进的体谅，会变成委屈。':r.pct.A<46?'你说话直、边界清，爱你的人会欣赏这份真诚；但在对方脆弱时，先共情再讲理，顺序很重要。':'你懂共情也懂边界，分寸感是你关系里的加分项。')+' '+(r.pct.N>=56?'你的敏感让你很会察觉对方的情绪变化，这是亲密关系的礼物——前提是别把猜测当事实，有话直接问。':'你的情绪稳定是关系里的定海神针，吵架时你往往是先冷静下来的那个。')+'</p>';
+// plan
+const plans={O:["每天记下 1 个新想法，30 天后回看，挑 1 个做成小作品","报一门完全陌生的课/去一个没去过的地方，给好奇心续费","把收藏夹清一次：收藏不等于拥有，选 3 个真正动手"],C:["用“睡前排明日 3 件事”代替复杂计划，先跑通最小系统","给最常拖的事设一个 25 分钟番茄钟，只要求开始","每周留半天空白：高尽责的人最缺的不是计划，是留白"],E:["每周主动约 1 个人深聊，而不是等别人组局","把想说的话当场说：练习在会议/饭局上第一个开口","给自己留独处充电时间，外向的人也会过载"],A:["练习说一次“这次我不太方便”，观察天塌没塌","吵架时先复述对方的话再表达自己，练共情顺序","每周主动帮一个小忙，但不帮会掏空自己的忙"],N:["情绪上头时先写 3 分钟“事实 vs 猜测”，再决定要不要行动","睡前不刷手机，把反刍改成纸上复盘 5 分钟","给焦虑设“担心时间”：每天固定 15 分钟想，其余时间推迟"]};
+const planItems=[...plans[top],...plans[low]].slice(0,5);
+$('planContent').innerHTML=planItems.map((p,i)=>'<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #F0EBE0"><span style="width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none">'+(i+1)+'</span><span style="font-size:14px;line-height:1.7">'+p+'</span></div>').join('')+'<p class="small" style="margin-top:12px">计划的逻辑：放大你的最高维（发动机），同时给最低维装一个“外挂系统”，而不是逼自己变成另一种人。人格很难改，策略可以换——这才是 Big Five 最实用的地方。</p>';
+}
+function summaryText(){const r=state.result;if(!r)return'';return '我的大五人格原型是：'+r.arch.tag+'。五维分数——开放性'+r.pct.O+' / 尽责性'+r.pct.C+' / 外向性'+r.pct.E+' / 宜人性'+r.pct.A+' / 神经质'+r.pct.N+'。你也来测测你是什么原型？'}
+function copySummary(){const txt=summaryText();if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>toast('文案已复制，去发小红书吧'))}else{toast('复制失败，请截图分享卡')}}
+function downloadCard(){
+const r=state.result;if(!r){toast('先完成测试');return}
+const cv=$('shareCanvas'),ctx=cv.getContext('2d');
+ctx.fillStyle='#16202E';ctx.fillRect(0,0,750,1000);
+ctx.fillStyle='#C75B39';ctx.fillRect(0,0,750,10);
+ctx.fillStyle='rgba(255,255,255,0.65)';ctx.font='700 24px sans-serif';ctx.fillText('BIG FIVE · 大五人格测试',48,76);
+ctx.fillStyle='#fff';ctx.font='900 62px "Noto Serif SC",serif'; wrapText(ctx,r.arch.n,48,170,650,72);
+ctx.font='400 27px sans-serif';ctx.fillStyle='rgba(255,255,255,0.88)'; wrapText(ctx,r.arch.tag,48,300,650,40);
+ctx.fillStyle='rgba(255,255,255,0.12)'; roundRect(ctx,48,410,654,320,22);ctx.fill();
+const keys=['O','C','E','A','N']; let y=462;
+keys.forEach(k=>{ctx.fillStyle='#fff';ctx.font='700 26px sans-serif';ctx.fillText(DIMS[k].name,74,y+8);ctx.fillStyle='rgba(255,255,255,0.18)';roundRect(ctx,190,y-16,380,18,9);ctx.fill();ctx.fillStyle=DIMS[k].color==='#3B6EA5'?'#7FB0E0':DIMS[k].color;const w=380*r.pct[k]/100;roundRect(ctx,190,y-16,Math.max(w,18),18,9);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 26px sans-serif';ctx.fillText(r.pct[k]+'',592,y+8);y+=56;});
+ctx.fillStyle='rgba(255,255,255,0.75)';ctx.font='400 24px sans-serif';wrapText(ctx,r.arch.desc,48,790,654,38);
+ctx.fillStyle='rgba(255,255,255,0.45)';ctx.font='400 21px sans-serif';ctx.fillText('50题 IPIP 标准版 · 趣味测试 仅供娱乐',48,938);
+const a=document.createElement('a');a.download='bigfive-'+r.arch.n+'.png';a.href=cv.toDataURL('image/png');a.click();toast('分享卡已生成，去相册看看');
+}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function wrapText(ctx,text,x,y,maxW,lh){let line='',yy=y;for(const ch of text){const test=line+ch;if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,x,yy);line=ch;yy+=lh}else line=test}if(line)ctx.fillText(line,x,yy);return yy}
+
+// init previews
+(function init(){
+$('dimPreview').innerHTML=Object.keys(DIMS).map(k=>{const d=DIMS[k];return '<div class="dimcard"><i style="background:'+d.color+'">'+d.icon+'</i><h3>'+d.name+' <span style="color:var(--muted);font-weight:500;font-size:11px">'+d.en+'</span></h3><p>'+d.short+'</p></div>'}).join('');
+const samples=["OE","OC","CE","EA","OA","NE"];
+$('archGallery').innerHTML=samples.map(k=>{const a=ARCH[k];return '<div class="gitem"><span>✦</span><div><b>'+a.n+'</b><p>'+a.tag+'</p></div></div>'}).join('')+'<div class="gitem"><span>＋</span><div><b>还有 14 种原型</b><p>由你的 Top2 维度组合生成，测完才能解锁属于你的那一个。</p></div></div>';
+updateResume();
+})();
+</script>
+</body>
+</html>
