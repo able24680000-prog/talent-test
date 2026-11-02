@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DISC 行为风格指南针｜免费测试</title>
+<meta name="description" content="免费 DISC 行为风格测试：24 道题约 6 分钟，测完立刻在罗盘上看到你的行为坐标。答案只留在你的浏览器里，不上传。仅供娱乐。">
+<meta name="theme-color" content="#F6F1E6">
+<style>
+  :root{
+    --d-color:#BA2E26; --d-tint:#F7E3E1;
+    --i-color:#996314; --i-tint:#F6ECD8;
+    --s-color:#527539; --s-tint:#E6EDDF;
+    --c-color:#33516B; --c-tint:#DFE8F0;
+    --paper:#F6F1E6; --paper-raised:#FFFDF7;
+    --ink:#2B2118; --ink-soft:#7A6C58;
+    --line:#E3D7BE; --line-strong:#C9B78F;
+    --accent:#8A5A2B;
+    --radius:16px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{font-size:16px;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+    line-height:1.65;
+  }
+  .wrap{max-width:520px; margin:0 auto; padding:0 18px;}
+  .view{padding-bottom:56px;}
+  [hidden]{display:none !important;}
+
+  /* ---------- header ---------- */
+  .site-head{position:sticky; top:0; z-index:20; background:rgba(246,241,230,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .site-head .wrap{display:flex; align-items:center; gap:10px; padding-top:12px; padding-bottom:12px;}
+  .brand-mark{width:30px; height:30px; border:1.6px solid var(--ink); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; flex:none;}
+  .brand-name{font-weight:800; font-size:17px; letter-spacing:.5px;}
+  .brand-sub{margin-left:auto; font-size:11px; color:var(--ink-soft);}
+
+  /* ---------- fun badge ---------- */
+  .fun-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:#2B2118; color:#F6F1E6; font-size:12px; font-weight:600;
+    border-radius:999px; padding:6px 14px; margin:22px 0 4px;
+  }
+  .fun-badge .dot{width:7px; height:7px; border-radius:50%; background:#7BD88F; flex:none;}
+
+  .kicker{font-size:12px; letter-spacing:2px; color:var(--ink-soft); font-weight:600; margin:18px 0 6px;}
+  h1{font-size:30px; line-height:1.3; margin:6px 0 12px; letter-spacing:.5px;}
+  h2{font-size:24px; line-height:1.35; margin:8px 0 10px;}
+  h3{font-size:17px; margin:0 0 8px;}
+  .lede{font-size:15.5px; color:#4A3F30; margin:0 0 12px;}
+  .lede strong{color:var(--ink);}
+
+  .fact-strip{display:flex; gap:10px; margin:18px 0 22px; padding:0; list-style:none;}
+  .fact-strip li{flex:1; background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:12px 8px; text-align:center;}
+  .fact-num{display:block; font-size:22px; font-weight:800;}
+  .fact-label{display:block; font-size:12px; color:var(--ink-soft); margin-top:2px;}
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    border:none; border-radius:999px; padding:15px 30px; font-size:16px; font-weight:700;
+    cursor:pointer; font-family:inherit; width:100%;
+  }
+  .btn-primary{background:#2B2118; color:#F6F1E6;}
+  .btn-primary:active{transform:scale(.98);}
+  .btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line-strong); width:auto; padding:12px 22px; font-size:14px;}
+  .fine-print{font-size:12.5px; color:var(--ink-soft); margin-top:12px;}
+
+  .disclaimer-block{
+    background:var(--paper-raised); border:1px dashed var(--line-strong);
+    border-radius:var(--radius); padding:14px 16px; margin:22px 0; font-size:13.5px; color:#4A3F30;
+  }
+  .disclaimer-block strong{color:var(--ink);}
+
+  /* ---------- trait cards ---------- */
+  .traits-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0 6px;}
+  .trait-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:14px 12px;}
+  .trait-card h3{font-size:14.5px; margin:8px 0 4px;}
+  .trait-card p{font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.6;}
+  .trait-card-badge{width:38px; height:38px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;}
+  .trait-card-badge svg{width:22px; height:22px;}
+
+  /* ---------- faq ---------- */
+  .faq-item{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; margin:0 0 10px;}
+  .faq-item h3{font-size:15px; margin:0 0 4px;}
+  .faq-item p{font-size:13.5px; color:#4A3F30; margin:0;}
+
+  /* ---------- quiz ---------- */
+  .quiz-head{padding:18px 0 6px;}
+  .progress-meta{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+  #progress-count{font-size:13px; font-weight:700; letter-spacing:1px;}
+  .progress-hint{font-size:11.5px; color:var(--ink-soft);}
+  .progress-track{height:8px; background:#E9DFC9; border-radius:999px; overflow:hidden;}
+  .progress-fill{height:100%; width:0; background:#2B2118; border-radius:999px; transition:width .25s ease;}
+
+  .q-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:20px; padding:22px 18px; margin:14px 0;}
+  .q-top{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .q-icon-badge{width:44px; height:44px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; flex:none;}
+  .q-icon-badge svg{width:24px; height:24px;}
+  .q-index{font-size:12px; font-weight:700; letter-spacing:1.5px; color:var(--ink-soft);}
+  .q-text{font-size:19px; font-weight:700; line-height:1.5; margin:2px 0 18px;}
+
+  .likert{display:flex; flex-direction:column; gap:9px; margin:0; padding:0; list-style:none;}
+  .likert button{
+    width:100%; text-align:left; font-family:inherit; font-size:15px; font-weight:600;
+    background:#FBF7EC; border:1.5px solid var(--line); border-radius:14px; padding:14px 16px;
+    display:flex; align-items:center; gap:12px; cursor:pointer; color:var(--ink);
+  }
+  .likert button .lv{
+    width:30px; height:30px; flex:none; border-radius:50%; border:1.5px solid var(--line-strong);
+    display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; color:var(--ink-soft);
+  }
+  .likert button.picked{background:#2B2118; color:#F6F1E6; border-color:#2B2118;}
+  .likert button.picked .lv{background:#F6F1E6; color:#2B2118; border-color:#F6F1E6;}
+  .likert button:active{transform:scale(.99);}
+
+  .quiz-nav{display:flex; gap:10px; margin-top:6px;}
+  .quiz-nav .btn-ghost{flex:1;}
+  .quiz-clear{display:block; margin:18px auto 0; background:none; border:none; color:var(--ink-soft); font-size:13px; text-decoration:underline; cursor:pointer; font-family:inherit;}
+
+  /* ---------- results ---------- */
+  .result-hero{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:22px;
+    padding:24px 20px; margin:14px 0; box-shadow:0 10px 30px rgba(43,33,24,.08);
+    text-align:center;
+  }
+  #result-kicker{font-size:12px; letter-spacing:2px; color:var(--ink-soft); font-weight:600; margin:0 0 8px;}
+  #result-title{font-size:27px; margin:0 0 10px; line-height:1.35;}
+  #result-desc{font-size:14.5px; color:#4A3F30; text-align:left; margin:12px 0 0;}
+
+  .compass-panel{background:var(--paper-raised); border:1px solid var(--line); border-radius:22px; padding:18px 12px 10px; margin:14px 0; text-align:center;}
+  #compass-result svg{max-width:100%; height:auto;}
+  .compass-caption{font-size:12px; color:var(--ink-soft); letter-spacing:1px; margin:6px 0 8px;}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+
+  .breakdown-panel{background:var(--paper-raised); border:1px solid var(--line); border-radius:22px; padding:18px; margin:14px 0;}
+  .panel-h{font-size:14px; letter-spacing:2px; color:var(--ink-soft); margin:0 0 12px; font-weight:700;}
+  .trait-row{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .trait-letter{width:32px; height:32px; flex:none; border-radius:10px; color:#fff; font-weight:800; display:inline-flex; align-items:center; justify-content:center; font-size:15px;}
+  .trait-bar-track{flex:1; height:12px; background:#EDE4CE; border-radius:999px; overflow:hidden;}
+  .trait-bar-fill{display:block; height:100%; border-radius:999px; transition:width .6s ease;}
+  .trait-pct{font-size:14px; font-weight:800; width:48px; text-align:right; flex:none;}
+  .panel-note{font-size:12.5px; color:var(--ink-soft); margin:10px 0 0;}
+
+  .share-block{margin:20px 0 6px;}
+  .share-label{font-size:12px; letter-spacing:2px; color:var(--ink-soft); font-weight:700; margin:0 0 10px; text-align:center;}
+  .share-row{display:flex; flex-direction:column; gap:10px;}
+  .share-btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    border-radius:999px; padding:14px 20px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit;
+    border:1.5px solid #2B2118; background:#2B2118; color:#F6F1E6; width:100%; text-decoration:none;
+  }
+  .share-btn.secondary{background:transparent; color:var(--ink);}
+  .share-btn svg{width:17px; height:17px; flex:none;}
+  .share-tip{font-size:12px; color:var(--ink-soft); text-align:center; margin:10px 0 0; min-height:18px;}
+
+  .cta-follow{
+    background:#2B2118; color:#F6F1E6; border-radius:22px; padding:20px; margin:22px 0; text-align:center;
+  }
+  .cta-follow p{margin:0 0 4px; font-size:14.5px;}
+  .cta-follow strong{font-size:16px;}
+
+  .result-actions{display:flex; gap:10px; margin:18px 0;}
+  .result-actions .btn-ghost{flex:1;}
+
+  /* ---------- invalid ---------- */
+  .invalid-wrap{padding:30px 0; text-align:center;}
+  .invalid-wrap .lede{text-align:left;}
+
+  /* ---------- footer ---------- */
+  .site-foot{border-top:1px solid var(--line); margin-top:10px;}
+  .site-foot .wrap{padding-top:18px; padding-bottom:34px;}
+  .site-foot p{font-size:11.5px; color:var(--ink-soft); margin:0 0 6px; line-height:1.7;}
+  .site-foot a{color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <span class="brand-mark">D</span>
+    <span class="brand-name">DISC 行为风格指南针</span>
+    <span class="brand-sub">免费测试</span>
+  </div>
+</header>
+
+<main>
+<!-- ================= INTRO ================= -->
+<section id="view-intro" class="view wrap">
+  <span class="fun-badge"><span class="dot"></span>仅供娱乐 · 非专业诊断</span>
+  <p class="kicker">免费行为风格小测试</p>
+  <h1>你的工作风格，<br>指向哪里？</h1>
+  <p class="lede">DISC 把人在压力下的行为风格分成四型——<strong>支配（D）、影响（I）、稳定（S）、谨慎（C）</strong>。它不测智商、不测能力，只看风格：你是先拍板再说的行动派，还是先核对再动手的细节控；是靠人带人，还是靠流程带人。</p>
+  <p class="lede">24 道题，凭第一感觉作答，约 6 分钟——测完立刻在罗盘上看到你的行为坐标。</p>
+  <ul class="fact-strip" role="list">
+    <li><span class="fact-num">24</span><span class="fact-label">道题目</span></li>
+    <li><span class="fact-num">~6</span><span class="fact-label">分钟</span></li>
+    <li><span class="fact-num">0</span><span class="fact-label">上传</span></li>
+  </ul>
+  <button class="btn btn-primary" id="start-btn" type="button">开始测试</button>
+  <p class="fine-print">答案只保存在这台设备的浏览器里，不上传、不存服务器。关掉页面回来，还能接着答。</p>
+
+  <div class="disclaimer-block">
+    <p><strong>先说清楚这测的是什么。</strong>它记录的是你自己报告的行为<strong>偏好</strong>和沟通风格，不测智商、不诊断心理状态、不评价工作能力。结果是描述倾向，不是盖章定论——图一乐，也照镜子。</p>
+  </div>
+
+  <p class="kicker">怎么看你的结果</p>
+  <h2>DISC 四型速览</h2>
+  <p class="lede">每个人的结果都是四型的混合，罗盘按每型的得分画出你的坐标。大多数人会偏向其中一到两型。</p>
+  <div class="traits-grid">
+    <div class="trait-card">
+      <span class="trait-card-badge" style="background:var(--d-tint)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--d-color)" aria-hidden="true"><path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381"/> <path d="m16 16 6-6"/> <path d="m21.5 10.5-8-8"/> <path d="m8 8 6-6"/> <path d="m8.5 7.5 8 8"/></svg></span>
+      <h3><span style="color:var(--d-color)">D</span> · 支配型</h3>
+      <p>直接、结果导向。敢拍板，事情要动起来时愿意第一个扛。</p>
+    </div>
+    <div class="trait-card">
+      <span class="trait-card-badge" style="background:var(--i-tint)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--i-color)" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/> <path d="M20 2v4"/> <path d="M22 4h-4"/> <circle cx="4" cy="20" r="2"/></svg></span>
+      <h3><span style="color:var(--i-color)">I</span> · 影响型</h3>
+      <p>有感染力、爱社交。靠热情带节奏，把人聊到一条船上。</p>
+    </div>
+    <div class="trait-card">
+      <span class="trait-card-badge" style="background:var(--s-tint)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--s-color)" aria-hidden="true"><path d="M12 6v16"/> <path d="m19 13 2-1a9 9 0 0 1-18 0l2 1"/> <path d="M9 11h6"/> <circle cx="12" cy="4" r="2"/></svg></span>
+      <h3><span style="color:var(--s-color)">S</span> · 稳定型</h3>
+      <p>稳、靠谱。看重一致和耐心，变化来了先稳住团队。</p>
+    </div>
+    <div class="trait-card">
+      <span class="trait-card-badge" style="background:var(--c-tint)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-color)" aria-hidden="true"><path d="m8 11 2 2 4-4"/> <circle cx="11" cy="11" r="8"/> <path d="m21 21-4.3-4.3"/></svg></span>
+      <h3><span style="color:var(--c-color)">C</span> · 谨慎型</h3>
+      <p>较真、抠细节。先要数据、按流程走，细节对上才签字。</p>
+    </div>
+  </div>
+
+  <p class="kicker" style="margin-top:26px">常见问题</p>
+  <div class="faq-item">
+    <h3>真的免费吗？</h3>
+    <p>免费，无账号、无付费墙、无邮箱收集。改编自 MIT 开源项目，随便测、随便重测。</p>
+  </div>
+  <div class="faq-item">
+    <h3>我的答案去哪了？</h3>
+    <p>哪也不去。计分全在这台设备的浏览器里完成，不上传，服务器永远见不到你的答案。</p>
+  </div>
+  <div class="faq-item">
+    <h3>这是专业心理诊断吗？</h3>
+    <p>不是。它测的是你自己报告的行为偏好，不是智商、心理健康诊断或工作能力。当一面镜子照，别当诊断书看。</p>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="view-quiz" class="view wrap" hidden>
+  <div class="quiz-head">
+    <div class="progress-meta">
+      <span id="progress-count" class="mono">第 1 / 24 题</span>
+      <span class="progress-hint">点选项作答，可返回修改</span>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="24" aria-valuenow="0" id="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="q-card" id="q-card">
+    <div class="q-top">
+      <span class="q-icon-badge" id="q-icon"></span>
+      <span class="q-index mono" id="q-index">Q01</span>
+    </div>
+    <p class="q-text" id="q-text"></p>
+    <ul class="likert" id="likert-list" role="radiogroup" aria-label="作答选项"></ul>
+  </div>
+
+  <div class="quiz-nav">
+    <button type="button" class="btn btn-ghost" id="prev-btn">← 上一题</button>
+  </div>
+  <button type="button" class="quiz-clear" id="clear-btn">清除进度，重新开始</button>
+</section>
+
+<!-- ================= RESULTS ================= -->
+<section id="view-results" class="view wrap" hidden>
+  <span class="fun-badge"><span class="dot"></span>仅供娱乐 · 非专业诊断</span>
+
+  <div id="results-invalid" hidden>
+    <div class="invalid-wrap">
+      <p class="kicker">解读 · 信号不明</p>
+      <h2>这次没能读出清晰信号</h2>
+      <p class="lede">大多数答案都落在量表正中间。这通常意味着这些陈述没能激起你明确的倾向，或者"一般"被当成了默认选项。平坦的读数不算结果——重测一次，尽量往"不同意"或"同意"靠一靠。</p>
+      <button class="btn btn-primary" id="retry-invalid-btn" type="button" style="margin-top:14px">重新测试</button>
+    </div>
+  </div>
+
+  <div id="results-valid" hidden>
+    <div class="result-hero" id="result-card">
+      <p id="result-kicker">解读完成</p>
+      <h2 id="result-title">—</h2>
+      <p id="result-desc">—</p>
+    </div>
+
+    <div class="compass-panel">
+      <div id="compass-result"></div>
+      <p class="compass-caption mono" id="compass-coords">X 0.00 · Y 0.00</p>
+    </div>
+
+    <div class="breakdown-panel">
+      <p class="panel-h">四型得分</p>
+      <div id="score-breakdown"></div>
+      <p class="panel-note" id="blend-note"></p>
+    </div>
+
+    <div class="disclaimer-block">
+      <p><strong>怎么理解这个结果。</strong>它测的是行为偏好和沟通风格，不测智商、心理健康或工作能力。百分比是你在这组题目里的认同比例，不是和人群的对比排名。</p>
+    </div>
+
+    <div class="share-block">
+      <p class="share-label mono">分享你的结果</p>
+      <div class="share-row">
+        <button class="share-btn" id="share-text-btn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="share-text-label">复制分享文案</span>
+        </button>
+      </div>
+      <p class="share-tip" id="share-tip"></p>
+    </div>
+
+    <div class="cta-follow">
+      <p><strong>想看完整版 10 维度天赋报告？</strong></p>
+      <p>关注小红书「阿卡契的天赋花园」，深度版上线第一时间开测。</p>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-ghost" id="retake-btn" type="button">重新测试</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>中文版改编自 <a href="https://github.com/SauerNinja/DiSC-Compass" target="_blank" rel="noopener">SauerNinja / DiSC-Compass</a>（MIT License © 2026 The Compass contributors）。题目与计分逻辑保持原样，仅做中文翻译与界面适配。</p>
+    <p>题目前图标线条取自 <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide</a>（ISC License）。</p>
+    <p>本页面仅供娱乐，不构成专业心理诊断。答案仅保存在你的浏览器本地，不上传。</p>
+  </div>
+</footer>
+
+<script>
+/*
+ * DISC 行为风格指南针 —— 中文版
+ * 改编自 SauerNinja/DiSC-Compass（MIT License, Copyright (c) 2026 The Compass contributors）
+ * https://github.com/SauerNinja/DiSC-Compass
+ *
+ * 题目与计分逻辑与原项目完全一致，仅做中文翻译与移动端界面适配。
+ * 题目前图标线条取自 Lucide（ISC License, https://lucide.dev）。
+ * 纯客户端运行：无网络请求、无后端、无第三方统计。进度只缓存在 localStorage，
+ * 除非用户主动点击分享，否则没有任何数据离开浏览器。
+ */
+(() => {
+  "use strict";
+
+  /* ============================================================
+     1. 数据 —— 24 题，每特质 6 题、每特质 1 道反向计分题，
+     交错出题保证同一特质不连续出现。
+     计分逻辑与原项目逐字一致。
+     ============================================================ */
+  /*__SCORING_START__*/
+  const TRAITS = ["D", "I", "S", "C"];
+
+  const TRAIT_NAMES = {
+    D: "支配型",
+    I: "影响型",
+    S: "稳定型",
+    C: "谨慎型",
+  };
+
+  const TRAIT_BASE_DESC = {
+    D: "你在统计上更倾向于直接、果断的行动，而不是反复商量。压力之下，你会先点出障碍并立刻动手，而不是等所有人达成一致。",
+    I: "你在统计上更倾向于用语言和关系来解决问题。你习惯用热情和社交氛围带动大家达成一致，而不是靠书面论证。",
+    S: "你在统计上更看重稳定而不是剧烈变化。你倾向于先把手头的事做完再开新局，并把团队的稳定放在优先位置。",
+    C: "你在统计上更相信核实而不是假设。你习惯先要数据、按流程来，在细节对上之前不轻易拍板。",
+  };
+
+  // 六种特质两两组合的衔接句，按 D-I-S-C 固定顺序键入（见 pairKey()）
+  const BLEND_LINK = {
+    DI: "叠加影响型的特质，你的果断会变成“带人冲”——先定下目标，再调动全场快速达成共识。",
+    DS: "这是一组对角组合：行动果断，又追求稳定——你做决定很快，但只在自己信任的流程里快。",
+    DC: "叠加谨慎型的特质，你的果断变成“精准果断”——先把事实查清楚，然后立刻行动，不无限期纠结。",
+    IS: "叠加稳定型的特质，你的热情是“长情型”的——先建立关系，再努力维护团队稳定，而不是追逐下一个新圈子。",
+    IC: "这是一组对角组合：社交能量强，又要求核实——你擅长交朋友，但数字对不上你心里不踏实。",
+    SC: "叠加谨慎型的特质，你是“有凭有据的靠谱”——让团队稳住的同时，坚持流程留痕、细节正确。",
+  };
+
+  const QUESTIONS = [
+    // Round 1
+    { id: 1, trait: "D", reverse: false, icon: "gavel", text: "即使大家还想再讨论，我也会推动先做决定。" },
+    { id: 2, trait: "I", reverse: false, icon: "sparkles", text: "我能把气氛带起来，让在场的人都开口说话。" },
+    { id: 3, trait: "S", reverse: false, icon: "activity", text: "比起突然的变化，我更喜欢稳定、可预期的节奏。" },
+    { id: 4, trait: "C", reverse: false, icon: "search-check", text: "宣布一件事做完之前，我会把细节检查两遍。" },
+    // Round 2
+    { id: 5, trait: "D", reverse: false, icon: "megaphone", text: "遇到需要解决的问题，我总是第一个开口。" },
+    { id: 6, trait: "I", reverse: false, icon: "flame", text: "比起摆数据，我更擅长用热情说服别人。" },
+    { id: 7, trait: "S", reverse: true, icon: "repeat", text: "如果一种惯例太久不变，我会坐不住。" },
+    { id: 8, trait: "C", reverse: false, icon: "chart-column", text: "接受一个说法之前，我想先看到数据。" },
+    // Round 3
+    { id: 9, trait: "D", reverse: true, icon: "circle-pause", text: "危机时刻，我会退后一步，让别人来主导。" },
+    { id: 10, trait: "I", reverse: false, icon: "users-round", text: "在陌生的群体里，我很容易交到新朋友。" },
+    { id: 11, trait: "S", reverse: false, icon: "anchor", text: "大家指望我让团队保持冷静，我就是那个人。" },
+    { id: 12, trait: "C", reverse: false, icon: "list-checks", text: "比起临场发挥，我更愿意按既定流程来。" },
+    // Round 4
+    { id: 13, trait: "D", reverse: false, icon: "gauge", text: "我会定下很快的节奏，并希望别人跟上。" },
+    { id: 14, trait: "I", reverse: false, icon: "messages-square", text: "我是边说边想的人，喜欢跟别人聊着聊着把想法理清楚。" },
+    { id: 15, trait: "S", reverse: false, icon: "hourglass", text: "在推动改变之前，我会先给大家适应的时间。" },
+    { id: 16, trait: "C", reverse: false, icon: "search", text: "别人注意不到的小矛盾，我总能发现。" },
+    // Round 5
+    { id: 17, trait: "D", reverse: false, icon: "flag", text: "一旦觉得某个流程在浪费时间，我会立刻提出质疑。" },
+    { id: 18, trait: "I", reverse: true, icon: "mic-off", text: "在群体场合，我习惯把自己的看法藏在心里。" },
+    { id: 19, trait: "S", reverse: false, icon: "heart-handshake", text: "比起短期赢一次，我更看重长期的忠诚。" },
+    { id: 20, trait: "C", reverse: false, icon: "circle-question-mark", text: "「我们怎么知道这是真的？」——这句话我问得比身边大多数人多。" },
+    // Round 6
+    { id: 21, trait: "D", reverse: false, icon: "dice-5", text: "比起等所有人达成一致，我宁愿先冒险行动。" },
+    { id: 22, trait: "I", reverse: false, icon: "radar", text: "我能察觉到一个房间里的气氛，还会把它说出来。" },
+    { id: 23, trait: "S", reverse: false, icon: "circle-check", text: "开始一件事，我会先做完再拿起新的。" },
+    { id: 24, trait: "C", reverse: true, icon: "signature", text: "我会在没有逐项核对细节的情况下就签字通过。" },
+  ];
+
+  // 图标线条取自 Lucide（ISC License, https://lucide.dev）
+  const ICONS = {
+    "gavel": '<path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381"/> <path d="m16 16 6-6"/> <path d="m21.5 10.5-8-8"/> <path d="m8 8 6-6"/> <path d="m8.5 7.5 8 8"/>',
+    "sparkles": '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/> <path d="M20 2v4"/> <path d="M22 4h-4"/> <circle cx="4" cy="20" r="2"/>',
+    "activity": '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
+    "search-check": '<path d="m8 11 2 2 4-4"/> <circle cx="11" cy="11" r="8"/> <path d="m21 21-4.3-4.3"/>',
+    "megaphone": '<path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/> <path d="M8 6v8"/>',
+    "flame": '<path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/>',
+    "repeat": '<path d="m17 2 4 4-4 4"/> <path d="M3 11v-1a4 4 0 0 1 4-4h14"/> <path d="m7 22-4-4 4-4"/> <path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+    "chart-column": '<path d="M3 3v16a2 2 0 0 0 2 2h16"/> <path d="M18 17V9"/> <path d="M13 17V5"/> <path d="M8 17v-3"/>',
+    "circle-pause": '<circle cx="12" cy="12" r="10"/> <line x1="10" x2="10" y1="15" y2="9"/> <line x1="14" x2="14" y1="15" y2="9"/>',
+    "users-round": '<path d="M18 21a8 8 0 0 0-16 0"/> <circle cx="10" cy="8" r="5"/> <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>',
+    "anchor": '<path d="M12 6v16"/> <path d="m19 13 2-1a9 9 0 0 1-18 0l2 1"/> <path d="M9 11h6"/> <circle cx="12" cy="4" r="2"/>',
+    "list-checks": '<path d="M13 5h8"/> <path d="M13 12h8"/> <path d="M13 19h8"/> <path d="m3 17 2 2 4-4"/> <path d="m3 7 2 2 4-4"/>',
+    "gauge": '<path d="m12 14 4-4"/> <path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+    "messages-square": '<path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/> <path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/>',
+    "hourglass": '<path d="M5 22h14"/> <path d="M5 2h14"/> <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/> <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>',
+    "search": '<path d="m21 21-4.34-4.34"/> <circle cx="11" cy="11" r="8"/>',
+    "flag": '<path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"/>',
+    "mic-off": '<path d="M12 19v3"/> <path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"/> <path d="M16.95 16.95A7 7 0 0 1 5 12v-2"/> <path d="M18.89 13.23A7 7 0 0 0 19 12v-2"/> <path d="m2 2 20 20"/> <path d="M9 9v3a3 3 0 0 0 5.12 2.12"/>',
+    "heart-handshake": '<path d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762"/>',
+    "circle-question-mark": '<circle cx="12" cy="12" r="10"/> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/> <path d="M12 17h.01"/>',
+    "dice-5": '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/> <path d="M16 8h.01"/> <path d="M8 8h.01"/> <path d="M8 16h.01"/> <path d="M16 16h.01"/> <path d="M12 12h.01"/>',
+    "radar": '<path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/> <path d="M4 6h.01"/> <path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/> <path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/> <path d="M12 18h.01"/> <path d="M17.99 11.66A6 6 0 0 1 15.77 16.67"/> <circle cx="12" cy="12" r="2"/> <path d="m13.41 10.59 5.66-5.66"/>',
+    "circle-check": '<circle cx="12" cy="12" r="10"/> <path d="m9 12 2 2 4-4"/>',
+    "signature": '<path d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"/> <path d="M3 21h18"/>',
+  };
+
+  const LIKERT_LABELS = ["非常不同意", "不同意", "一般", "同意", "非常同意"];
+
+  const STORAGE_KEY = "disc-compass-cn-progress-v1";
+  const FLATLINE_THRESHOLD = 0.8; // 超过 80% 答案落在正中间 → 判为无效
+  const BLEND_THRESHOLD = 15;     // 第一、第二特质分差在此以内 → 混合画像
+  const ADAPTIVE_THRESHOLD = 3;   // 前三特质分差在此以内 → 适应型
+
+  /* ============================================================
+     2. 计分引擎（经典测量理论）—— 与原项目逐字一致
+     ============================================================ */
+
+  function pairKey(a, b) {
+    const order = ["D", "I", "S", "C"];
+    return order.filter((t) => t === a || t === b).join("");
+  }
+
+  function calculateProfile(answersMap) {
+    const totals = { D: 0, I: 0, S: 0, C: 0 };
+    const counts = { D: 0, I: 0, S: 0, C: 0 };
+    let midpointCount = 0;
+
+    QUESTIONS.forEach((q) => {
+      const raw = Number(answersMap[q.id]);
+      if (raw === 3) midpointCount++;
+      const value = q.reverse ? 6 - raw : raw;
+      totals[q.trait] += value;
+      counts[q.trait] += 1;
+    });
+
+    const midpointRatio = midpointCount / QUESTIONS.length;
+    if (midpointRatio > FLATLINE_THRESHOLD) {
+      return { invalid: true };
+    }
+
+    const percentages = {};
+    TRAITS.forEach((t) => {
+      const max = counts[t] * 5;
+      const min = counts[t] * 1;
+      percentages[t] = Math.round(((totals[t] - min) / (max - min)) * 100);
+    });
+
+    const sorted = [...TRAITS].sort((a, b) => percentages[b] - percentages[a]);
+    const [first, second, third] = sorted;
+
+    let profileKey, primary, secondary;
+
+    if (percentages[first] - percentages[third] <= ADAPTIVE_THRESHOLD) {
+      profileKey = "ADAPTIVE";
+      primary = first;
+      secondary = second;
+    } else if (percentages[first] - percentages[second] <= BLEND_THRESHOLD) {
+      profileKey = "BLEND";
+      primary = first;
+      secondary = second;
+    } else {
+      profileKey = "SINGLE";
+      primary = first;
+      secondary = second;
+    }
+
+    // 罗盘坐标
+    // X 轴：任务导向 (+) vs 人际导向 (-)  = (D+C) - (I+S)
+    // Y 轴：快节奏 (+) vs 稳妥 (-)        = (D+I) - (C+S)
+    const xRaw = (percentages.D + percentages.C) - (percentages.I + percentages.S);
+    const yRaw = (percentages.D + percentages.I) - (percentages.C + percentages.S);
+    const x = xRaw / 200; // 归一化到约 -1..1
+    const y = yRaw / 200;
+
+    return {
+      invalid: false,
+      totals,
+      percentages,
+      sorted,
+      primary,
+      secondary,
+      profileKey,
+      x,
+      y,
+    };
+  }
+  /*__SCORING_END__*/
+
+  /* ============================================================
+     3. 视图路由
+     ============================================================ */
+  const $ = (sel) => document.querySelector(sel);
+  const views = {
+    intro: $("#view-intro"),
+    quiz: $("#view-quiz"),
+    results: $("#view-results"),
+  };
+
+  function showView(name) {
+    Object.entries(views).forEach(([key, el]) => {
+      el.hidden = key !== name;
+    });
+    window.scrollTo({ top: 0 });
+  }
+
+  /* ============================================================
+     4. 答题（逐题作答，支持返回修改）
+     ============================================================ */
+  let answers = loadProgress();
+  let currentIndex = 0;
+  let advanceTimer = null; // 防连点：一次作答只推进一题，避免跳题导致漏答
+
+  const qCard = $("#q-card");
+  const qIcon = $("#q-icon");
+  const qIndex = $("#q-index");
+  const qText = $("#q-text");
+  const likertList = $("#likert-list");
+  const progressFill = $("#progress-fill");
+  const progressBar = $("#progress-bar");
+  const progressCount = $("#progress-count");
+  const prevBtn = $("#prev-btn");
+
+  function loadProgress() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveProgress() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+    } catch {
+      /* localStorage 不可用 —— 进度只不持久化 */
+    }
+  }
+
+  function answeredCount() {
+    return Object.keys(answers).length;
+  }
+
+  function updateProgress() {
+    const n = answeredCount();
+    const pct = Math.round((n / QUESTIONS.length) * 100);
+    progressFill.style.width = pct + "%";
+    progressBar.setAttribute("aria-valuenow", n);
+    progressCount.textContent = `第 ${Math.min(currentIndex + 1, QUESTIONS.length)} / ${QUESTIONS.length} 题`;
+  }
+
+  function traitColorVar(t) {
+    return t.toLowerCase();
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[currentIndex];
+    const v = traitColorVar(q.trait);
+    qIcon.style.background = `var(--${v}-tint)`;
+    qIcon.innerHTML = ICONS[q.icon]
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--${v}-color)" aria-hidden="true" focusable="false">${ICONS[q.icon]}</svg>`
+      : "";
+    qIndex.textContent = "Q" + String(currentIndex + 1).padStart(2, "0");
+    qText.textContent = q.text;
+    likertList.setAttribute("aria-label", q.text);
+
+    likertList.innerHTML = "";
+    LIKERT_LABELS.forEach((label, i) => {
+      const value = i + 1;
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("role", "radio");
+      btn.setAttribute("aria-checked", answers[q.id] === value ? "true" : "false");
+      if (answers[q.id] === value) btn.classList.add("picked");
+      btn.innerHTML = `<span class="lv" aria-hidden="true">${value}</span><span>${label}</span>`;
+      btn.addEventListener("click", () => answerQuestion(q.id, value, btn));
+      li.appendChild(btn);
+      likertList.appendChild(li);
+    });
+
+    prevBtn.disabled = currentIndex === 0;
+    prevBtn.style.opacity = currentIndex === 0 ? 0.35 : 1;
+    updateProgress();
+  }
+
+  function answerQuestion(qid, value, btn) {
+    if (advanceTimer !== null) return; // 已有一次作答在等待推进，忽略连点
+    answers[qid] = value;
+    saveProgress();
+    likertList.querySelectorAll("button").forEach((b) => {
+      b.classList.remove("picked");
+      b.setAttribute("aria-checked", "false");
+    });
+    btn.classList.add("picked");
+    btn.setAttribute("aria-checked", "true");
+    updateProgress();
+
+    advanceTimer = setTimeout(() => {
+      advanceTimer = null;
+      if (currentIndex < QUESTIONS.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    }, 240);
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (advanceTimer !== null) {
+      clearTimeout(advanceTimer);
+      advanceTimer = null;
+    }
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+    }
+  });
+
+  $("#clear-btn").addEventListener("click", () => {
+    if (advanceTimer !== null) {
+      clearTimeout(advanceTimer);
+      advanceTimer = null;
+    }
+    answers = {};
+    currentIndex = 0;
+    localStorage.removeItem(STORAGE_KEY);
+    renderQuestion();
+  });
+
+  // 数字键 1-5 快捷作答
+  document.addEventListener("keydown", (e) => {
+    if (!"12345".includes(e.key)) return;
+    if (views.quiz.hidden) return;
+    const btns = likertList.querySelectorAll("button");
+    const btn = btns[Number(e.key) - 1];
+    if (btn) btn.click();
+  });
+
+  function startQuiz() {
+    // 断点续答：跳到第一道未答的题
+    const firstUnanswered = QUESTIONS.findIndex((q) => answers[q.id] == null);
+    currentIndex = firstUnanswered === -1 ? 0 : firstUnanswered;
+    renderQuestion();
+    showView("quiz");
+  }
+
+  function finishQuiz() {
+    const result = calculateProfile(answers);
+    renderResults(result);
+    showView("results");
+  }
+
+  $("#start-btn").addEventListener("click", () => {
+    if (answeredCount() >= QUESTIONS.length) {
+      // 已答完：直接看结果
+      finishQuiz();
+    } else {
+      startQuiz();
+    }
+  });
+
+  function resetAndRetake() {
+    if (advanceTimer !== null) {
+      clearTimeout(advanceTimer);
+      advanceTimer = null;
+    }
+    answers = {};
+    currentIndex = 0;
+    localStorage.removeItem(STORAGE_KEY);
+    renderQuestion();
+    showView("quiz");
+  }
+
+  $("#retake-btn")?.addEventListener("click", resetAndRetake);
+  $("#retry-invalid-btn")?.addEventListener("click", resetAndRetake);
+
+  /* ============================================================
+     5. 结果文案
+     ============================================================ */
+  function buildResultCopy(result) {
+    const { profileKey, primary, secondary } = result;
+
+    if (profileKey === "ADAPTIVE") {
+      return {
+        kicker: "解读完成 · 没有单一风格占主导",
+        title: "适应型 / 随情境切换",
+        desc: "你的前三项得分非常接近，没有明显的单一主导风格。这说明你更像“变色龙”：行为随情境调整，而不是固定一种默认模式。换个日子或换个场景再测一次，可能会出现更清晰的主导项。",
+      };
+    }
+
+    if (profileKey === "SINGLE") {
+      return {
+        kicker: "解读完成 · 主导风格",
+        title: `${TRAIT_NAMES[primary]}（${primary}）`,
+        desc: TRAIT_BASE_DESC[primary],
+      };
+    }
+
+    // BLEND
+    const key = pairKey(primary, secondary);
+    const link = BLEND_LINK[key] || "";
+    return {
+      kicker: "解读完成 · 混合画像（两项分差 15 以内）",
+      title: `${TRAIT_NAMES[primary]}–${TRAIT_NAMES[secondary]} 混合型`,
+      desc: `${TRAIT_BASE_DESC[primary]} ${link}`,
+    };
+  }
+
+  /* ============================================================
+     6. 结果渲染
+     ============================================================ */
+  function renderResults(result) {
+    const invalidBlock = $("#results-invalid");
+    const validBlock = $("#results-valid");
+
+    if (result.invalid) {
+      invalidBlock.hidden = false;
+      validBlock.hidden = true;
+      return;
+    }
+
+    invalidBlock.hidden = true;
+    validBlock.hidden = false;
+
+    const copy = buildResultCopy(result);
+    $("#result-kicker").textContent = copy.kicker;
+    $("#result-title").textContent = copy.title;
+    $("#result-desc").textContent = copy.desc;
+
+    // 四型得分条，高到低排列
+    const breakdown = $("#score-breakdown");
+    breakdown.innerHTML = "";
+    result.sorted.forEach((t) => {
+      const row = document.createElement("div");
+      row.className = "trait-row";
+      row.innerHTML =
+        `<span class="trait-letter" style="background:var(--${t.toLowerCase()}-color)">${t}</span>` +
+        `<span class="trait-bar-track"><span class="trait-bar-fill" style="width:${result.percentages[t]}%;background:var(--${t.toLowerCase()}-color)"></span></span>` +
+        `<span class="trait-pct">${result.percentages[t]}%</span>`;
+      breakdown.appendChild(row);
+    });
+
+    const note = $("#blend-note");
+    if (result.profileKey === "BLEND") {
+      note.textContent = `第一、第二特质分差在 ${BLEND_THRESHOLD} 分以内，所以两项一起呈现。`;
+    } else if (result.profileKey === "ADAPTIVE") {
+      note.textContent = `前三项特质分差在 ${ADAPTIVE_THRESHOLD} 分以内。`;
+    } else {
+      note.textContent = `第二特质（${TRAIT_NAMES[result.secondary]}）落后超过 ${BLEND_THRESHOLD} 分，因此只呈现主导风格。`;
+    }
+
+    $("#compass-coords").textContent = `X ${result.x.toFixed(2)} · Y ${result.y.toFixed(2)}`;
+
+    renderCompass($("#compass-result"), {
+      x: result.x,
+      y: result.y,
+      showPoint: true,
+      accent: `var(--${result.primary.toLowerCase()}-color)`,
+    });
+
+    wireShareButtons(copy.title);
+  }
+
+  /* ============================================================
+     7. 罗盘（SVG circumplex）—— 与原项目一致，轴标签汉化
+     ============================================================ */
+  function renderCompass(container, opts = {}) {
+    if (!container) return;
+    const { x = 0, y = 0, showPoint = false, accent = "var(--c-color)" } = opts;
+    const size = 260;
+    const c = size / 2;
+    const r = 96;
+
+    const px = c + x * r;
+    const py = c - y * r;
+
+    const quadrantLabel = (letter, cx, cy) =>
+      `<text x="${cx}" y="${cy}" class="mono" font-size="13" font-weight="700"
+         text-anchor="middle" dominant-baseline="middle"
+         fill="var(--${letter.toLowerCase()}-color)">${letter}</text>`;
+
+    const rings = [0.33, 0.66, 1].map(
+      (f) => `<circle cx="${c}" cy="${c}" r="${r * f}" fill="none" stroke="var(--line)" stroke-width="1"/>`
+    ).join("");
+
+    const ticks = [];
+    for (let deg = 0; deg < 360; deg += 15) {
+      const rad = (deg * Math.PI) / 180;
+      const inner = r + 2;
+      const outer = deg % 90 === 0 ? r + 9 : r + 5;
+      ticks.push(
+        `<line x1="${c + inner * Math.cos(rad)}" y1="${c + inner * Math.sin(rad)}"
+               x2="${c + outer * Math.cos(rad)}" y2="${c + outer * Math.sin(rad)}"
+               stroke="var(--line-strong)" stroke-width="1"/>`
+      );
+    }
+
+    const pointMarkup = showPoint
+      ? `
+        <line x1="${c}" y1="${c}" x2="${px}" y2="${py}" stroke="${accent}" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <circle cx="${px}" cy="${py}" r="6" fill="${accent}" stroke="var(--paper-raised)" stroke-width="2"/>
+        <circle cx="${px}" cy="${py}" r="11" fill="none" stroke="${accent}" stroke-width="1" opacity="0.5"/>
+      `
+      : "";
+
+    const quadrant =
+      x >= 0 && y >= 0 ? "任务导向、快节奏 (D)" :
+      x < 0 && y >= 0 ? "人际导向、快节奏 (I)" :
+      x < 0 && y < 0 ? "人际导向、稳妥 (S)" :
+      "任务导向、稳妥 (C)";
+
+    const ariaLabel = showPoint
+      ? `罗盘图。坐标：X ${x.toFixed(2)}, Y ${y.toFixed(2)}。象限：${quadrant}。`
+      : "罗盘图，未标点。";
+
+    container.innerHTML = `
+      <svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="${ariaLabel}">
+        ${rings}
+        <line x1="${c - r - 12}" y1="${c}" x2="${c + r + 12}" y2="${c}" stroke="var(--line-strong)" stroke-width="1"/>
+        <line x1="${c}" y1="${c - r - 12}" x2="${c}" y2="${c + r + 12}" stroke="var(--line-strong)" stroke-width="1"/>
+        ${ticks.join("")}
+        ${quadrantLabel("D", c + r * 0.62, c - r * 0.62)}
+        ${quadrantLabel("I", c - r * 0.62, c - r * 0.62)}
+        ${quadrantLabel("S", c - r * 0.62, c + r * 0.62)}
+        ${quadrantLabel("C", c + r * 0.62, c + r * 0.62)}
+        <text x="${c + r + 16}" y="${c}" class="mono" font-size="9" fill="var(--ink-soft)" text-anchor="start" dominant-baseline="middle">任务</text>
+        <text x="${c - r - 16}" y="${c}" class="mono" font-size="9" fill="var(--ink-soft)" text-anchor="end" dominant-baseline="middle">人际</text>
+        <text x="${c}" y="${c - r - 18}" class="mono" font-size="9" fill="var(--ink-soft)" text-anchor="middle">快节奏</text>
+        <text x="${c}" y="${c + r + 22}" class="mono" font-size="9" fill="var(--ink-soft)" text-anchor="middle">稳妥</text>
+        <circle cx="${c}" cy="${c}" r="2" fill="var(--ink-soft)"/>
+        ${pointMarkup}
+      </svg>
+    `;
+  }
+
+  /* ============================================================
+     8. 分享（复制文案）
+     ============================================================ */
+  function copyText(text, okMsg) {
+    const tip = $("#share-tip");
+    const done = (msg) => { if (tip) tip.textContent = msg; };
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        done(okMsg);
+      } catch {
+        done("复制失败，请手动长按复制");
+      }
+      ta.remove();
+    };
+    if (navigator.clipboard && window.isSecureContext !== false) {
+      navigator.clipboard.writeText(text).then(() => done(okMsg)).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function wireShareButtons(resultTitle) {
+    const shareText =
+`我刚测了「DISC 行为风格指南针」，结果是「${resultTitle}」！
+24 道题、约 6 分钟，答案只留在你自己的浏览器里，不上传。
+来测测你是哪一型！
+#DISC测试 #性格测试 #天赋测试 #自我认知 #职场`;
+
+    const textBtn = $("#share-text-btn");
+    const textLabel = $("#share-text-label");
+    if (textBtn) {
+      textBtn.onclick = () => {
+        copyText(shareText, "文案已复制，去小红书 / 微信粘贴分享吧！");
+        if (textLabel) {
+          const orig = textLabel.textContent;
+          textLabel.textContent = "已复制！";
+          setTimeout(() => { textLabel.textContent = orig; }, 2000);
+        }
+      };
+    }
+  }
+
+  /* ============================================================
+     9. 初始化
+     ============================================================ */
+  if (answeredCount() >= QUESTIONS.length) {
+    $("#start-btn").textContent = "查看我的结果";
+  }
+})();
+</script>
+</body>
+</html>
